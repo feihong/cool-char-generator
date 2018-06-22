@@ -14,6 +14,7 @@ type coolChar = {
 type mode = [
   | `Hanzi
   | `Hangul
+  | `Kana
   | `Emoji
   | `Any
 ];
@@ -40,14 +41,11 @@ type action =
    Needs to be **after** state and action declarations! */
 let component = ReasonReact.reducerComponent("CoolCharGenerator");
 
-let getMode = (mode) =>
-  /* If mode is `Either, then randomly pick `Hanzi or `Emoji */
-  if (mode == `Any) {
-    switch (Random.int(2)) {
-    | 0 => `Hanzi
-    | _ => `Emoji
-    }
-  } else
+let getMode = mode =>
+  /* If mode is `Any, then randomly pick a writing system */
+  if (mode == `Any)
+    Util.chooseFromArray([|`Hanzi, `Hangul, `Kana, `Emoji|])
+  else 
     mode;
 
 let getCoolChar = mode => 
@@ -59,18 +57,18 @@ let getCoolChar = mode =>
         caption: Printf.sprintf("%s (%s)", emoji.shortname, emoji.category),
       }
     }
-  | (`Hanzi | `Hangul) as language => {
+  | (`Hanzi | `Hangul | `Kana) as language => {
       let ic = IntlChar.getIntlChar(language);
       {
         text: ic.text,
-        caption: Printf.sprintf("Type: %s, Code point: %d", 
+        caption: Printf.sprintf("Writing system: %s, Code point: %d", 
                                 ic.language, ic.ordinal),
       }      
     }
   | _ => {text: "?", caption: "?"}
   };
 
-/* greeting and children are props. `children` isn't used, therefore ignored.
+/* `children` isn't used, therefore ignored.
    We ignore it by prepending it with an underscore */
 let make = (_children) => {
   /* spread the other default fields of component here and override a few */
@@ -110,6 +108,7 @@ let make = (_children) => {
                 onChange=(evt => evt |. modeFromJsEvent |. ChangeMode |. send)>
           (changeModeOption(`Hanzi))
           (changeModeOption(`Hangul))
+          (changeModeOption(`Kana))
           (changeModeOption(`Emoji))
           (changeModeOption(`Any))
         </select>

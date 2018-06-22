@@ -8,6 +8,7 @@ type intlChar = {
 type language = [
   | `Hanzi
   | `Hangul
+  | `Kana
 ];
 
 let getCharFromRange = (min, max) => {
@@ -16,18 +17,21 @@ let getCharFromRange = (min, max) => {
   (text, ordinal)
 };
 
+let kanaCodePoints: array(int) = [%bs.raw {|
+  [...'゠ァアィイゥウェエォオカグケゲコゴサザシジスズセダチヂッツヅテデトドナニバパヒビピフブプヘベペホムメモャヤュユョヨラリルヰヱヲンヴヵヶヷヸヹヺぁあぃいぅうぇえぉおかぐけげこごさざしじすずせだちぢっつづてでとどなにばぱひびぴふぶぷへべぺほむめもゃやゅゆょよらりるゐゑをんゔゕゖ']
+  .map(s => s.charCodeAt(0))
+|}];
+
 let getIntlChar = lang => {
   let (text, ordinal) = 
     switch (lang) {
     | `Hanzi => getCharFromRange(0x4e00, 0x9fff)
     /* https://en.wikipedia.org/wiki/Hangul_Syllables */  
     | `Hangul => getCharFromRange(0xAC00, 0xD7AF)
+    | `Kana => 
+        let ordinal_ = Util.chooseFromArray(kanaCodePoints);
+        (Util.fromCodePoint(ordinal_), ordinal_);
   };
   let languageStr = languageToJs(lang);
   {text, ordinal, language: languageStr}
 };
-
-let kanaCodePoints: array(int) = [%bs.raw {|
-  [...'゠ァアィイゥウェエォオカグケゲコゴサザシジスズセダチヂッツヅテデトドナニバパヒビピフブプヘベペホムメモャヤュユョヨラリルヰヱヲンヴヵヶヷヸヹヺぁあぃいぅうぇえぉおかぐけげこごさざしじすずせだちぢっつづてでとどなにばぱひびぴふぶぷへべぺほむめもゃやゅゆょよらりるゐゑをんゔゕゖ']
-  .map(s => s.charCodeAt(0))
-|}];
