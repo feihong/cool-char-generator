@@ -33,7 +33,6 @@ let kanaCodePoints = [%bs.raw {|
 let devanagariCodePoints = [%bs.raw {|
   'ऄअआइईउऊऋऌऍऎएऐऑऒओऔकखगघङचछजझञटठडढणतथदधनऩपफबभमयरऱलळऴवशषसहऽॐक़ख़ग़ज़ड़ढ़फ़य़ॠॡ१२३४५६७८९ॲॳॴॵॶॷॸॹॺॻॼॽॾॿ'
 |}] |. Util.stringToCodePoints;
-Js.log(devanagariCodePoints)
 
 let getIntlChar = writingSys => {
   let (text, ordinal) = 

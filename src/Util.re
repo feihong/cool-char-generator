@@ -20,3 +20,6 @@ let stringToCodePoints: string => array(int) =
       return [...text].map(s => s.charCodeAt(0))
     }
   |}];
+
+let eventTargetValue = evt => 
+  (evt |. ReactEventRe.Form.target |. ReactDOMRe.domElementToObj)##value;
