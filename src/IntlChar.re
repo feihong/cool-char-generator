@@ -1,14 +1,15 @@
 type intlChar = {
   text: string,
-  language: string,
+  writingSystem: string,
   ordinal: int,
 };
 
 [@bs.deriving jsConverter]
-type language = [
+type writingSystem = [
   | `Hanzi
   | `Hangul
   | `Kana
+  | `Devanagari
 ];
 
 let getCharFromRange = (min, max) => {
@@ -17,21 +18,31 @@ let getCharFromRange = (min, max) => {
   (text, ordinal)
 };
 
-let kanaCodePoints: array(int) = [%bs.raw {|
-  [...'゠ァアィイゥウェエォオカグケゲコゴサザシジスズセダチヂッツヅテデトドナニバパヒビピフブプヘベペホムメモャヤュユョヨラリルヰヱヲンヴヵヶヷヸヹヺぁあぃいぅうぇえぉおかぐけげこごさざしじすずせだちぢっつづてでとどなにばぱひびぴふぶぷへべぺほむめもゃやゅゆょよらりるゐゑをんゔゕゖ']
-  .map(s => s.charCodeAt(0))
-|}];
+let getCharFromCodePoints = codePoints => {
+  let ordinal = Util.chooseFromArray(codePoints);
+  let text = Util.fromCodePoint(ordinal);
+  (text, ordinal)
+};
+  
 
-let getIntlChar = lang => {
+let kanaCodePoints = [%bs.raw {|
+  '゠ァアィイゥウェエォオカグケゲコゴサザシジスズセダチヂッツヅテデトドナニバパヒビピフブプヘベペホムメモャヤュユョヨラリルヰヱヲンヴヵヶヷヸヹヺぁあぃいぅうぇえぉおかぐけげこごさざしじすずせだちぢっつづてでとどなにばぱひびぴふぶぷへべぺほむめもゃやゅゆょよらりるゐゑをんゔゕゖ'
+|}] |. Util.stringToCodePoints;
+
+let devanagariCodePoints = [%bs.raw {|
+  'ऄअआइईउऊऋऌऍऎएऐऑऒओऔकखगघङचछजझञटठडढणतथदधनऩपफबभमयरऱलळऴवशषसहऽॐक़ख़ग़ज़ड़ढ़फ़य़ॠॡ१२३४५६७८९ॲॳॴॵॶॷॸॹॺॻॼॽॾॿ'
+|}] |. Util.stringToCodePoints;
+Js.log(devanagariCodePoints)
+
+let getIntlChar = writingSys => {
   let (text, ordinal) = 
-    switch (lang) {
+    switch (writingSys) {
     | `Hanzi => getCharFromRange(0x4e00, 0x9fff)
     /* https://en.wikipedia.org/wiki/Hangul_Syllables */  
     | `Hangul => getCharFromRange(0xAC00, 0xD7AF)
-    | `Kana => 
-        let ordinal_ = Util.chooseFromArray(kanaCodePoints);
-        (Util.fromCodePoint(ordinal_), ordinal_);
+    | `Kana => getCharFromCodePoints(kanaCodePoints)
+    | `Devanagari => getCharFromCodePoints(devanagariCodePoints)
   };
-  let languageStr = languageToJs(lang);
-  {text, ordinal, language: languageStr}
+  let label = writingSystemToJs(writingSys);
+  {text, ordinal, writingSystem: label}
 };

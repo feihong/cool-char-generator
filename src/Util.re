@@ -12,3 +12,11 @@ let chooseFromArray = array => {
   let index = array |. Array.length |. Random.int;
   array |. Array.getExn(index);
 };
+
+/* Convert given string to array of code points */
+let stringToCodePoints: string => array(int) =
+  [%bs.raw {|
+    function (text) {
+      return [...text].map(s => s.charCodeAt(0))
+    }
+  |}];
