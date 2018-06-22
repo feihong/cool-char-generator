@@ -4,31 +4,41 @@ import * as Block from "bs-platform/lib/es6/block.js";
 import * as Curry from "bs-platform/lib/es6/curry.js";
 import * as React from "react";
 import * as Printf from "bs-platform/lib/es6/printf.js";
-import * as Random from "bs-platform/lib/es6/random.js";
 import * as Belt_Array from "bs-platform/lib/es6/belt_Array.js";
 import * as Js_mapperRt from "bs-platform/lib/es6/js_mapperRt.js";
 import * as ReasonReact from "reason-react/src/ReasonReact.js";
+import * as Util$ReactTemplate from "./Util.bs.js";
 import * as Emoji$ReactTemplate from "./Emoji.bs.js";
-import * as Hanzi$ReactTemplate from "./Hanzi.bs.js";
+import * as IntlChar$ReactTemplate from "./IntlChar.bs.js";
 
 function str(prim) {
   return prim;
 }
 
-function eventTargetValue(evt) {
-  return evt.target.value;
-}
-
-Random.self_init(/* () */0);
-
 var jsMapperConstantArray = /* array */[
   /* tuple */[
-    -659631771,
-    "Either"
+    -325826967,
+    "Hangul"
+  ],
+  /* tuple */[
+    3257036,
+    "Any"
   ],
   /* tuple */[
     50782054,
     "Emoji"
+  ],
+  /* tuple */[
+    83233512,
+    "Hieroglyphs"
+  ],
+  /* tuple */[
+    90688528,
+    "Devanagari"
+  ],
+  /* tuple */[
+    836565865,
+    "Kana"
   ],
   /* tuple */[
     894130468,
@@ -37,81 +47,111 @@ var jsMapperConstantArray = /* array */[
 ];
 
 function modeToJs(param) {
-  return Js_mapperRt.binarySearch(3, param, jsMapperConstantArray);
+  return Js_mapperRt.binarySearch(7, param, jsMapperConstantArray);
 }
 
 function modeFromJs(param) {
-  return Js_mapperRt.revSearch(3, jsMapperConstantArray, param);
-}
-
-function modeFromJsEvent(evt) {
-  var match = modeFromJs(evt.target.value);
-  if (match) {
-    return match[0];
-  } else {
-    return /* Either */-659631771;
-  }
+  return Js_mapperRt.revSearch(7, jsMapperConstantArray, param);
 }
 
 var component = ReasonReact.reducerComponent("CoolCharGenerator");
 
-function getMode(mode) {
-  if (mode === /* Either */-659631771) {
-    var match = Random.$$int(2);
-    if (match !== 0) {
-      return /* Emoji */50782054;
+function make() {
+  var modeFromJsEvent = function (evt) {
+    var match = modeFromJs(Util$ReactTemplate.eventTargetValue(evt));
+    if (match) {
+      return match[0];
     } else {
-      return /* Hanzi */894130468;
+      return /* Any */3257036;
     }
-  } else {
-    return mode;
-  }
-}
-
-function getCoolChar(mode) {
-  var match = getMode(mode);
-  if (match !== 894130468) {
-    var emoji = Emoji$ReactTemplate.getEmoji(/* () */0);
-    return /* record */[
-            /* text */emoji[/* text */1],
-            /* caption */Curry._2(Printf.sprintf(/* Format */[
-                      /* String */Block.__(2, [
-                          /* No_padding */0,
-                          /* String_literal */Block.__(11, [
-                              " (",
-                              /* String */Block.__(2, [
-                                  /* No_padding */0,
-                                  /* Char_literal */Block.__(12, [
-                                      /* ")" */41,
-                                      /* End_of_format */0
+  };
+  var getMode = function (mode) {
+    if (mode === /* Any */3257036) {
+      return Util$ReactTemplate.chooseFromArray(/* array */[
+                  /* Hanzi */894130468,
+                  /* Hangul */-325826967,
+                  /* Kana */836565865,
+                  /* Devanagari */90688528,
+                  /* Hieroglyphs */83233512,
+                  /* Emoji */50782054
+                ]);
+    } else {
+      return mode;
+    }
+  };
+  var getCoolChar = function (mode) {
+    var language = getMode(mode);
+    var exit = 0;
+    if (language >= 83233513) {
+      if (language !== 90688528 && language !== 836565865 && language !== 894130468) {
+        return /* record */[
+                /* text */"?",
+                /* caption */"?"
+              ];
+      } else {
+        exit = 1;
+      }
+    } else if (language !== -325826967) {
+      if (language !== 50782054) {
+        if (language >= 83233512) {
+          exit = 1;
+        } else {
+          return /* record */[
+                  /* text */"?",
+                  /* caption */"?"
+                ];
+        }
+      } else {
+        var emoji = Emoji$ReactTemplate.getEmoji(/* () */0);
+        return /* record */[
+                /* text */emoji[/* text */1],
+                /* caption */Curry._2(Printf.sprintf(/* Format */[
+                          /* String */Block.__(2, [
+                              /* No_padding */0,
+                              /* String_literal */Block.__(11, [
+                                  " (",
+                                  /* String */Block.__(2, [
+                                      /* No_padding */0,
+                                      /* Char_literal */Block.__(12, [
+                                          /* ")" */41,
+                                          /* End_of_format */0
+                                        ])
                                     ])
                                 ])
-                            ])
-                        ]),
-                      "%s (%s)"
-                    ]), emoji[/* shortname */0], emoji[/* category */2])
-          ];
-  } else {
-    var hanzi = Hanzi$ReactTemplate.getHanzi(/* () */0);
-    return /* record */[
-            /* text */hanzi[/* text */0],
-            /* caption */Curry._1(Printf.sprintf(/* Format */[
-                      /* String_literal */Block.__(11, [
-                          "Code point: ",
-                          /* Int */Block.__(4, [
-                              /* Int_d */0,
-                              /* No_padding */0,
-                              /* No_precision */0,
-                              /* End_of_format */0
-                            ])
-                        ]),
-                      "Code point: %d"
-                    ]), hanzi[/* ordinal */1])
-          ];
-  }
-}
-
-function make() {
+                            ]),
+                          "%s (%s)"
+                        ]), emoji[/* shortname */0], emoji[/* category */2])
+              ];
+      }
+    } else {
+      exit = 1;
+    }
+    if (exit === 1) {
+      var ic = IntlChar$ReactTemplate.getIntlChar(language);
+      return /* record */[
+              /* text */ic[/* text */0],
+              /* caption */Curry._2(Printf.sprintf(/* Format */[
+                        /* String_literal */Block.__(11, [
+                            "Writing system: ",
+                            /* String */Block.__(2, [
+                                /* No_padding */0,
+                                /* String_literal */Block.__(11, [
+                                    ", Code point: ",
+                                    /* Int */Block.__(4, [
+                                        /* Int_d */0,
+                                        /* No_padding */0,
+                                        /* No_precision */0,
+                                        /* End_of_format */0
+                                      ])
+                                  ])
+                              ])
+                          ]),
+                        "Writing system: %s, Code point: %d"
+                      ]), ic[/* writingSystem */1], ic[/* ordinal */2])
+            ];
+    }
+    
+  };
   return /* record */[
           /* debugName */component[/* debugName */0],
           /* reactClassInternal */component[/* reactClassInternal */1],
@@ -130,6 +170,7 @@ function make() {
               var changeModeOption = function (mode) {
                 var modeStr = modeToJs(mode);
                 return React.createElement("option", {
+                            key: modeStr,
                             value: modeStr
                           }, modeStr);
               };
@@ -141,7 +182,15 @@ function make() {
                                   onChange: (function (evt) {
                                       return Curry._1(send, /* ChangeMode */[modeFromJsEvent(evt)]);
                                     })
-                                }, changeModeOption(/* Hanzi */894130468), changeModeOption(/* Emoji */50782054), changeModeOption(/* Either */-659631771)), React.createElement("button", {
+                                }, Belt_Array.map(/* array */[
+                                      /* Any */3257036,
+                                      /* Hanzi */894130468,
+                                      /* Hangul */-325826967,
+                                      /* Kana */836565865,
+                                      /* Devanagari */90688528,
+                                      /* Hieroglyphs */83233512,
+                                      /* Emoji */50782054
+                                    ], changeModeOption)), React.createElement("button", {
                                   className: "btn btn-primary btn-sm mr-2",
                                   onClick: (function () {
                                       return Curry._1(send, /* AddChar */0);
@@ -163,7 +212,7 @@ function make() {
           /* initialState */(function () {
               return /* record */[
                       /* chars : array */[],
-                      /* mode : Either */-659631771
+                      /* mode : Any */3257036
                     ];
             }),
           /* retainedProps */component[/* retainedProps */11],
@@ -194,14 +243,10 @@ function make() {
 
 export {
   str ,
-  eventTargetValue ,
   modeToJs ,
   modeFromJs ,
-  modeFromJsEvent ,
   component ,
-  getMode ,
-  getCoolChar ,
   make ,
   
 }
-/*  Not a pure module */
+/* component Not a pure module */
