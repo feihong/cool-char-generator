@@ -10,6 +10,7 @@ type writingSystem = [
   | `Hangul
   | `Kana
   | `Devanagari
+  | `Hieroglyphs
 ];
 
 let getCharFromRange = (min, max) => {
@@ -41,7 +42,10 @@ let getIntlChar = writingSys => {
     /* https://en.wikipedia.org/wiki/Hangul_Syllables */  
     | `Hangul => getCharFromRange(0xAC00, 0xD7AF)
     | `Kana => getCharFromCodePoints(kanaCodePoints)
+    /* https://en.wikipedia.org/wiki/Devanagari_(Unicode_block) */
     | `Devanagari => getCharFromCodePoints(devanagariCodePoints)
+    /* https://en.wikipedia.org/wiki/Egyptian_Hieroglyphs_(Unicode_block) */
+    | `Hieroglyphs => getCharFromRange(0x13000, 0x1342E)
   };
   let label = writingSystemToJs(writingSys);
   {text, ordinal, writingSystem: label}

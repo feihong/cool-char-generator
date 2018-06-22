@@ -16,6 +16,7 @@ type mode = [
   | `Hangul
   | `Kana
   | `Devanagari
+  | `Hieroglyphs
   | `Emoji
   | `Any
 ];
@@ -44,9 +45,10 @@ let component = ReasonReact.reducerComponent("CoolCharGenerator");
 
 let getMode = mode =>
   /* If mode is `Any, then randomly pick a writing system */
-  if (mode == `Any)
-    Util.chooseFromArray([|`Hanzi, `Hangul, `Kana, `Devanagari, `Emoji|])
-  else 
+  if (mode == `Any) {
+    [|`Hanzi, `Hangul, `Kana, `Devanagari, `Hieroglyphs, `Emoji|]
+    |. Util.chooseFromArray
+  } else 
     mode;
 
 let getCoolChar = mode => 
@@ -58,7 +60,7 @@ let getCoolChar = mode =>
         caption: Printf.sprintf("%s (%s)", emoji.shortname, emoji.category),
       }
     }
-  | (`Hanzi | `Hangul | `Kana |`Devanagari) as language => {
+  | (`Hanzi|`Hangul|`Kana|`Devanagari|`Hieroglyphs) as language => {
       let ic = IntlChar.getIntlChar(language);
       {
         text: ic.text,
@@ -110,7 +112,8 @@ let make = (_children) => {
           (changeModeOption(`Hanzi))
           (changeModeOption(`Hangul))
           (changeModeOption(`Kana))
-          (changeModeOption(`Devanagari))          
+          (changeModeOption(`Devanagari))
+          (changeModeOption(`Hieroglyphs))          
           (changeModeOption(`Emoji))
           (changeModeOption(`Any))
         </select>
