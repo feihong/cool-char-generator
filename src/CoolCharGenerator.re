@@ -5,8 +5,6 @@ let str = ReasonReact.string;
 let eventTargetValue = evt => 
   (evt |. ReactEventRe.Form.target |. ReactDOMRe.domElementToObj)##value;
 
-Random.self_init();
-
 type coolChar = {
   text: string,
   caption: string,
@@ -15,13 +13,14 @@ type coolChar = {
 [@bs.deriving jsConverter]
 type mode = [
   | `Hanzi
+  | `Hangul
   | `Emoji
-  | `Either
+  | `Any
 ];
 
 let modeFromJsEvent = evt =>
   switch (eventTargetValue(evt) |. modeFromJs) {
-  | None => `Either
+  | None => `Any
   | Some(mode) => mode
   };
 
@@ -43,7 +42,7 @@ let component = ReasonReact.reducerComponent("CoolCharGenerator");
 
 let getMode = (mode) =>
   /* If mode is `Either, then randomly pick `Hanzi or `Emoji */
-  if (mode == `Either) {
+  if (mode == `Any) {
     switch (Random.int(2)) {
     | 0 => `Hanzi
     | _ => `Emoji
@@ -53,20 +52,22 @@ let getMode = (mode) =>
 
 let getCoolChar = mode => 
   switch(getMode(mode)) {
-  | `Hanzi => {
-      let hanzi = Hanzi.getHanzi();
-      {
-        text: hanzi.text,
-        caption: Printf.sprintf("Code point: %d", hanzi.ordinal),
-      }
-    }
-  | _ => {
+  | `Emoji => {
       let emoji = Emoji.getEmoji();
       {
         text: emoji.text,
         caption: Printf.sprintf("%s (%s)", emoji.shortname, emoji.category),
       }
     }
+  | (`Hanzi | `Hangul) as language => {
+      let ic = IntlChar.getIntlChar(language);
+      {
+        text: ic.text,
+        caption: Printf.sprintf("Type: %s, Code point: %d", 
+                                ic.language, ic.ordinal),
+      }      
+    }
+  | _ => {text: "?", caption: "?"}
   };
 
 /* greeting and children are props. `children` isn't used, therefore ignored.
@@ -77,7 +78,7 @@ let make = (_children) => {
 
   initialState: () => {
     chars: [||],
-    mode: `Either,
+    mode: `Any,
   },
 
   didMount: self => self.send(AddChar),
@@ -108,8 +109,9 @@ let make = (_children) => {
                 value=modeToJs(state.mode)
                 onChange=(evt => evt |. modeFromJsEvent |. ChangeMode |. send)>
           (changeModeOption(`Hanzi))
+          (changeModeOption(`Hangul))
           (changeModeOption(`Emoji))
-          (changeModeOption(`Either))
+          (changeModeOption(`Any))
         </select>
         <button className="btn btn-primary btn-sm mr-2"
                 onClick=(_ => send(AddChar))>
