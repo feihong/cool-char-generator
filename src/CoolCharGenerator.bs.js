@@ -21,6 +21,10 @@ var jsMapperConstantArray = /* array */[
     "Hangul"
   ],
   /* tuple */[
+    -45475687,
+    "OldPersian"
+  ],
+  /* tuple */[
     3257036,
     "Any"
   ],
@@ -47,11 +51,11 @@ var jsMapperConstantArray = /* array */[
 ];
 
 function modeToJs(param) {
-  return Js_mapperRt.binarySearch(7, param, jsMapperConstantArray);
+  return Js_mapperRt.binarySearch(8, param, jsMapperConstantArray);
 }
 
 function modeFromJs(param) {
-  return Js_mapperRt.revSearch(7, jsMapperConstantArray, param);
+  return Js_mapperRt.revSearch(8, jsMapperConstantArray, param);
 }
 
 var component = ReasonReact.reducerComponent("CoolCharGenerator");
@@ -73,17 +77,27 @@ function make() {
                   /* Kana */836565865,
                   /* Devanagari */90688528,
                   /* Hieroglyphs */83233512,
-                  /* Emoji */50782054
+                  /* Emoji */50782054,
+                  /* OldPersian */-45475687
                 ]);
     } else {
       return mode;
     }
   };
   var getCoolChar = function (mode) {
-    var language = getMode(mode);
+    var writingSys = getMode(mode);
     var exit = 0;
-    if (language >= 83233513) {
-      if (language !== 90688528 && language !== 836565865 && language !== 894130468) {
+    if (writingSys >= 83233512) {
+      if (writingSys >= 836565865) {
+        if (writingSys !== 894130468 && writingSys >= 836565866) {
+          return /* record */[
+                  /* text */"?",
+                  /* caption */"?"
+                ];
+        } else {
+          exit = 1;
+        }
+      } else if (writingSys !== 90688528 && writingSys >= 83233513) {
         return /* record */[
                 /* text */"?",
                 /* caption */"?"
@@ -91,16 +105,12 @@ function make() {
       } else {
         exit = 1;
       }
-    } else if (language !== -325826967) {
-      if (language !== 50782054) {
-        if (language >= 83233512) {
-          exit = 1;
-        } else {
-          return /* record */[
-                  /* text */"?",
-                  /* caption */"?"
-                ];
-        }
+    } else if (writingSys !== -325826967 && writingSys !== -45475687) {
+      if (writingSys !== 50782054) {
+        return /* record */[
+                /* text */"?",
+                /* caption */"?"
+              ];
       } else {
         var emoji = Emoji$ReactTemplate.getEmoji(/* () */0);
         return /* record */[
@@ -127,7 +137,7 @@ function make() {
       exit = 1;
     }
     if (exit === 1) {
-      var ic = IntlChar$ReactTemplate.getIntlChar(language);
+      var ic = IntlChar$ReactTemplate.getIntlChar(writingSys);
       return /* record */[
               /* text */ic[/* text */0],
               /* caption */Curry._2(Printf.sprintf(/* Format */[
@@ -189,6 +199,7 @@ function make() {
                                       /* Kana */836565865,
                                       /* Devanagari */90688528,
                                       /* Hieroglyphs */83233512,
+                                      /* OldPersian */-45475687,
                                       /* Emoji */50782054
                                     ], changeModeOption)), React.createElement("button", {
                                   className: "btn btn-primary btn-sm mr-2",

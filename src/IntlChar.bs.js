@@ -6,8 +6,16 @@ import * as Util$ReactTemplate from "./Util.bs.js";
 
 var jsMapperConstantArray = /* array */[
   /* tuple */[
+    -766220796,
+    "Cuneiform"
+  ],
+  /* tuple */[
     -325826967,
     "Hangul"
+  ],
+  /* tuple */[
+    -45475687,
+    "OldPersian"
   ],
   /* tuple */[
     83233512,
@@ -28,11 +36,11 @@ var jsMapperConstantArray = /* array */[
 ];
 
 function writingSystemToJs(param) {
-  return Js_mapperRt.binarySearch(5, param, jsMapperConstantArray);
+  return Js_mapperRt.binarySearch(7, param, jsMapperConstantArray);
 }
 
 function writingSystemFromJs(param) {
-  return Js_mapperRt.revSearch(5, jsMapperConstantArray, param);
+  return Js_mapperRt.revSearch(7, jsMapperConstantArray, param);
 }
 
 function getCharFromRange(min, max) {
@@ -61,14 +69,73 @@ var devanagariCodePoints = Curry._1(Util$ReactTemplate.stringToCodePoints, (
   'ऄअआइईउऊऋऌऍऎएऐऑऒओऔकखगघङचछजझञटठडढणतथदधनऩपफबभमयरऱलळऴवशषसहऽॐक़ख़ग़ज़ड़ढ़फ़य़ॠॡ१२३४५६७८९ॲॳॴॵॶॷॸॹॺॻॼॽॾॿ'
 ));
 
+var oldPersianCodePoints = /* array */[
+  66464,
+  66465,
+  66466,
+  66467,
+  66468,
+  66469,
+  66470,
+  66471,
+  66472,
+  66473,
+  66474,
+  66475,
+  66476,
+  66477,
+  66478,
+  66479,
+  66480,
+  66481,
+  66482,
+  66483,
+  66484,
+  66485,
+  66486,
+  66487,
+  66488,
+  66489,
+  66490,
+  66491,
+  66492,
+  66493,
+  66494,
+  66495,
+  66496,
+  66497,
+  66498,
+  66499,
+  66504,
+  66505,
+  66506,
+  66507,
+  66508,
+  66509,
+  66510,
+  66511,
+  66512,
+  66513,
+  66514,
+  66515,
+  66516,
+  66517
+];
+
+console.log(oldPersianCodePoints);
+
 function getIntlChar(writingSys) {
-  var match = writingSys !== 83233512 ? (
+  var match = writingSys >= 83233512 ? (
       writingSys >= 836565865 ? (
           writingSys >= 894130468 ? getCharFromRange(19968, 40959) : getCharFromCodePoints(kanaCodePoints)
         ) : (
-          writingSys >= 90688528 ? getCharFromCodePoints(devanagariCodePoints) : getCharFromRange(44032, 55215)
+          writingSys >= 90688528 ? getCharFromCodePoints(devanagariCodePoints) : getCharFromRange(77824, 78894)
         )
-    ) : getCharFromRange(77824, 78894);
+    ) : (
+      writingSys !== -325826967 ? (
+          writingSys >= -45475687 ? getCharFromCodePoints(oldPersianCodePoints) : getCharFromRange(73728, 74751)
+        ) : getCharFromRange(44032, 55215)
+    );
   var label = writingSystemToJs(writingSys);
   return /* record */[
           /* text */match[0],
@@ -84,6 +151,7 @@ export {
   getCharFromCodePoints ,
   kanaCodePoints ,
   devanagariCodePoints ,
+  oldPersianCodePoints ,
   getIntlChar ,
   
 }
