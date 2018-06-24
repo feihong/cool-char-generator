@@ -17,12 +17,12 @@ function str(prim) {
 
 var jsMapperConstantArray = /* array */[
   /* tuple */[
-    -325826967,
-    "Hangul"
+    -790390071,
+    "Tibetan"
   ],
   /* tuple */[
-    -45475687,
-    "OldPersian"
+    -325826967,
+    "Hangul"
   ],
   /* tuple */[
     3257036,
@@ -58,6 +58,18 @@ function modeFromJs(param) {
   return Js_mapperRt.revSearch(8, jsMapperConstantArray, param);
 }
 
+var coolWritingSystems = /* array */[
+  /* Hanzi */894130468,
+  /* Hangul */-325826967,
+  /* Kana */836565865,
+  /* Devanagari */90688528,
+  /* Hieroglyphs */83233512,
+  /* Tibetan */-790390071,
+  /* Emoji */50782054
+];
+
+var options = Belt_Array.concat(/* array */[/* Any */3257036], coolWritingSystems);
+
 var component = ReasonReact.reducerComponent("CoolCharGenerator");
 
 function make() {
@@ -71,15 +83,7 @@ function make() {
   };
   var getMode = function (mode) {
     if (mode === /* Any */3257036) {
-      return Util$ReactTemplate.chooseFromArray(/* array */[
-                  /* Hanzi */894130468,
-                  /* Hangul */-325826967,
-                  /* Kana */836565865,
-                  /* Devanagari */90688528,
-                  /* Hieroglyphs */83233512,
-                  /* Emoji */50782054,
-                  /* OldPersian */-45475687
-                ]);
+      return Util$ReactTemplate.chooseFromArray(coolWritingSystems);
     } else {
       return mode;
     }
@@ -105,7 +109,7 @@ function make() {
       } else {
         exit = 1;
       }
-    } else if (writingSys !== -325826967 && writingSys !== -45475687) {
+    } else if (writingSys !== -790390071 && writingSys !== -325826967) {
       if (writingSys !== 50782054) {
         return /* record */[
                 /* text */"?",
@@ -192,16 +196,7 @@ function make() {
                                   onChange: (function (evt) {
                                       return Curry._1(send, /* ChangeMode */[modeFromJsEvent(evt)]);
                                     })
-                                }, Belt_Array.map(/* array */[
-                                      /* Any */3257036,
-                                      /* Hanzi */894130468,
-                                      /* Hangul */-325826967,
-                                      /* Kana */836565865,
-                                      /* Devanagari */90688528,
-                                      /* Hieroglyphs */83233512,
-                                      /* OldPersian */-45475687,
-                                      /* Emoji */50782054
-                                    ], changeModeOption)), React.createElement("button", {
+                                }, Belt_Array.map(options, changeModeOption)), React.createElement("button", {
                                   className: "btn btn-primary btn-sm mr-2",
                                   onClick: (function () {
                                       return Curry._1(send, /* AddChar */0);
@@ -256,8 +251,10 @@ export {
   str ,
   modeToJs ,
   modeFromJs ,
+  coolWritingSystems ,
+  options ,
   component ,
   make ,
   
 }
-/* component Not a pure module */
+/* options Not a pure module */

@@ -6,6 +6,10 @@ import * as Util$ReactTemplate from "./Util.bs.js";
 
 var jsMapperConstantArray = /* array */[
   /* tuple */[
+    -790390071,
+    "Tibetan"
+  ],
+  /* tuple */[
     -766220796,
     "Cuneiform"
   ],
@@ -36,11 +40,11 @@ var jsMapperConstantArray = /* array */[
 ];
 
 function writingSystemToJs(param) {
-  return Js_mapperRt.binarySearch(7, param, jsMapperConstantArray);
+  return Js_mapperRt.binarySearch(8, param, jsMapperConstantArray);
 }
 
 function writingSystemFromJs(param) {
-  return Js_mapperRt.revSearch(7, jsMapperConstantArray, param);
+  return Js_mapperRt.revSearch(8, jsMapperConstantArray, param);
 }
 
 function getCharFromRange(min, max) {
@@ -67,6 +71,10 @@ var kanaCodePoints = Curry._1(Util$ReactTemplate.stringToCodePoints, (
 
 var devanagariCodePoints = Curry._1(Util$ReactTemplate.stringToCodePoints, (
   'ऄअआइईउऊऋऌऍऎएऐऑऒओऔकखगघङचछजझञटठडढणतथदधनऩपफबभमयरऱलळऴवशषसहऽॐक़ख़ग़ज़ड़ढ़फ़य़ॠॡ१२३४५६७८९ॲॳॴॵॶॷॸॹॺॻॼॽॾॿ'
+));
+
+var tibetanCodePoints = Curry._1(Util$ReactTemplate.stringToCodePoints, (
+  'ༀ༁༂༃༄༅༆༇༈༉༊༒༓༔༕༖༗༘༜༡༢༣༤༥༦༧༨༩༪༫༬༭༮༯༰༱༲༳༴༸༺༻༼༽ཀཁགགྷངཅཆཇཉཊཋཌཌྷཎཏཐདདྷནཔཕབབྷམཙཚཛཛྷཝཞཟའཡརལཤཥསཧཨཀྵཪཫཬིཻོཽྀ྅ྈྉྊྋ྿࿂࿃࿄࿅࿇࿈࿉࿊࿋࿌࿏࿐࿑࿓࿔࿕࿖࿗࿘'
 ));
 
 var oldPersianCodePoints = /* array */[
@@ -122,8 +130,6 @@ var oldPersianCodePoints = /* array */[
   66517
 ];
 
-console.log(oldPersianCodePoints);
-
 function getIntlChar(writingSys) {
   var match = writingSys >= 83233512 ? (
       writingSys >= 836565865 ? (
@@ -132,9 +138,11 @@ function getIntlChar(writingSys) {
           writingSys >= 90688528 ? getCharFromCodePoints(devanagariCodePoints) : getCharFromRange(77824, 78894)
         )
     ) : (
-      writingSys !== -325826967 ? (
-          writingSys >= -45475687 ? getCharFromCodePoints(oldPersianCodePoints) : getCharFromRange(73728, 74751)
-        ) : getCharFromRange(44032, 55215)
+      writingSys >= -325826967 ? (
+          writingSys >= -45475687 ? getCharFromCodePoints(oldPersianCodePoints) : getCharFromRange(44032, 55215)
+        ) : (
+          writingSys >= -766220796 ? getCharFromRange(73728, 74751) : getCharFromCodePoints(tibetanCodePoints)
+        )
     );
   var label = writingSystemToJs(writingSys);
   return /* record */[
@@ -151,6 +159,7 @@ export {
   getCharFromCodePoints ,
   kanaCodePoints ,
   devanagariCodePoints ,
+  tibetanCodePoints ,
   oldPersianCodePoints ,
   getIntlChar ,
   

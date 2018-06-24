@@ -11,8 +11,9 @@ type writingSystem = [
   | `Kana
   | `Devanagari
   | `Hieroglyphs
+  | `Tibetan
   | `Cuneiform    /* unfortunately, these are rather ugly */
-  | `OldPersian   /* I'm on the fence about these */
+  | `OldPersian   /* these aren't that good-looking either */
 ];
 
 let getCharFromRange = (min, max) => {
@@ -36,13 +37,15 @@ let devanagariCodePoints = [%bs.raw {|
   'ऄअआइईउऊऋऌऍऎएऐऑऒओऔकखगघङचछजझञटठडढणतथदधनऩपफबभमयरऱलळऴवशषसहऽॐक़ख़ग़ज़ड़ढ़फ़य़ॠॡ१२३४५६७८९ॲॳॴॵॶॷॸॹॺॻॼॽॾॿ'
 |}] |. Util.stringToCodePoints;
 
+let tibetanCodePoints = [%bs.raw {|
+  'ༀ༁༂༃༄༅༆༇༈༉༊༒༓༔༕༖༗༘༜༡༢༣༤༥༦༧༨༩༪༫༬༭༮༯༰༱༲༳༴༸༺༻༼༽ཀཁགགྷངཅཆཇཉཊཋཌཌྷཎཏཐདདྷནཔཕབབྷམཙཚཛཛྷཝཞཟའཡརལཤཥསཧཨཀྵཪཫཬིཻོཽྀ྅ྈྉྊྋ྿࿂࿃࿄࿅࿇࿈࿉࿊࿋࿌࿏࿐࿑࿓࿔࿕࿖࿗࿘'
+|}] |. Util.stringToCodePoints;
+
 /* The characters for Old Persian can't be pasted into a code editor, so we
    just use the code points directly */
 let oldPersianCodePoints = [|
   66464, 66465, 66466, 66467, 66468, 66469, 66470, 66471, 66472, 66473, 66474, 66475, 66476, 66477, 66478, 66479, 66480, 66481, 66482, 66483, 66484, 66485, 66486, 66487, 66488, 66489, 66490, 66491, 66492, 66493, 66494, 66495, 66496, 66497, 66498, 66499, 66504, 66505, 66506, 66507, 66508, 66509, 66510, 66511, 66512, 66513, 66514, 66515, 66516, 66517
 |];
-
-Js.log(oldPersianCodePoints);
 
 let getIntlChar = writingSys => {
   let (text, ordinal) = 
@@ -59,6 +62,8 @@ let getIntlChar = writingSys => {
     | `Cuneiform => getCharFromRange(0x12000, 0x123FF)
     /* https://en.wikipedia.org/wiki/Old_Persian_(Unicode_block) */
     | `OldPersian => getCharFromCodePoints(oldPersianCodePoints)
+    /* https://en.wikipedia.org/wiki/Tibetan_(Unicode_block) */
+    | `Tibetan => getCharFromCodePoints(tibetanCodePoints)
   };
   let label = writingSystemToJs(writingSys);
   {text, ordinal, writingSystem: label}
