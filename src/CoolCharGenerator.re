@@ -14,10 +14,16 @@ type mode = [
   | `Kana
   | `Devanagari
   | `Hieroglyphs
-  | `OldPersian
+  | `Tibetan
   | `Emoji
   | `Any
 ];
+
+let coolWritingSystems = [|
+  `Hanzi, `Hangul, `Kana, `Devanagari, `Hieroglyphs, `Tibetan, `Emoji,
+|];
+
+let options = Array.concat([|`Any|], coolWritingSystems);
 
 /* State declaration */
 type state = {
@@ -47,10 +53,10 @@ let make = (_children) => {
   let getMode = mode =>
     /* If mode is `Any, then randomly pick a writing system */
     if (mode == `Any) {
-      [|`Hanzi, `Hangul, `Kana, `Devanagari, `Hieroglyphs, `Emoji, `OldPersian|]
-      |. Util.chooseFromArray
-    } else 
-      mode;
+      coolWritingSystems |. Util.chooseFromArray
+    } else {
+      mode
+    }
 
   let getCoolChar = mode => 
     switch(getMode(mode)) {
@@ -61,7 +67,7 @@ let make = (_children) => {
           caption: Printf.sprintf("%s (%s)", emoji.shortname, emoji.category),
         }
       }
-    | (`Hanzi|`Hangul|`Kana|`Devanagari|`Hieroglyphs|`OldPersian) as writingSys => {
+    | (`Hanzi|`Hangul|`Kana|`Devanagari|`Hieroglyphs|`Tibetan) as writingSys => {
         let ic = IntlChar.getIntlChar(writingSys);
         {
           text: ic.text,
@@ -108,7 +114,7 @@ let make = (_children) => {
                   value=modeToJs(state.mode)
                   onChange=(evt => evt |. modeFromJsEvent |. ChangeMode |. send)>
             (
-              [|`Any, `Hanzi, `Hangul, `Kana, `Devanagari, `Hieroglyphs, `OldPersian, `Emoji|]
+              options
               |. Array.map(changeModeOption)
               |. ReasonReact.array
             )
