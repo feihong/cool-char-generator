@@ -119,14 +119,14 @@ let make = (_children) => {
               |. ReasonReact.array
             )
           </select>
-          <button className="btn btn-primary btn-sm mr-2"
-                  onClick=(_ => send(AddChar))>
+          <MaterialUi.Button color=`Primary variant=`Raised
+                             onClick=(_ => send(AddChar))>
             (str("Generate"))
-          </button>
-          <button className="btn btn-primary btn-sm"
-                  onClick=(_ => send(Clear))>
+          </MaterialUi.Button>
+          <MaterialUi.Button color=`Secondary variant=`Raised
+                             onClick=(_ => send(Clear))>
             (str("Clear"))
-          </button>
+          </MaterialUi.Button>
         </div>
         <div className="chars">
           (
