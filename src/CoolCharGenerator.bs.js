@@ -7,6 +7,7 @@ import * as Printf from "bs-platform/lib/es6/printf.js";
 import * as Belt_Array from "bs-platform/lib/es6/belt_Array.js";
 import * as Js_mapperRt from "bs-platform/lib/es6/js_mapperRt.js";
 import * as ReasonReact from "reason-react/src/ReasonReact.js";
+import * as MaterialUi_Button from "@jsiebern/bs-material-ui/src/MaterialUi_Button.bs.js";
 import * as Util$ReactTemplate from "./Util.bs.js";
 import * as Emoji$ReactTemplate from "./Emoji.bs.js";
 import * as IntlChar$ReactTemplate from "./IntlChar.bs.js";
@@ -196,17 +197,11 @@ function make() {
                                   onChange: (function (evt) {
                                       return Curry._1(send, /* ChangeMode */[modeFromJsEvent(evt)]);
                                     })
-                                }, Belt_Array.map(options, changeModeOption)), React.createElement("button", {
-                                  className: "btn btn-primary btn-sm mr-2",
-                                  onClick: (function () {
-                                      return Curry._1(send, /* AddChar */0);
-                                    })
-                                }, "Generate"), React.createElement("button", {
-                                  className: "btn btn-primary btn-sm",
-                                  onClick: (function () {
-                                      return Curry._1(send, /* Clear */1);
-                                    })
-                                }, "Clear")), React.createElement("div", {
+                                }, Belt_Array.map(options, changeModeOption)), ReasonReact.element(/* None */0, /* None */0, MaterialUi_Button.make(/* None */0, /* Some */[/* Primary */-791844958], /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* Some */[/* Raised */-387916264], /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* Some */[(function () {
+                                          return Curry._1(send, /* AddChar */0);
+                                        })], /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* array */["Generate"])), ReasonReact.element(/* None */0, /* None */0, MaterialUi_Button.make(/* None */0, /* Some */[/* Secondary */67972948], /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* Some */[/* Raised */-387916264], /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* Some */[(function () {
+                                          return Curry._1(send, /* Clear */1);
+                                        })], /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* array */["Clear"]))), React.createElement("div", {
                               className: "chars"
                             }, Belt_Array.mapWithIndex(state[/* chars */0], (function (i, cc) {
                                     return React.createElement("span", {

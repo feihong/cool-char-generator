@@ -1,5 +1,7 @@
 # Deploy to Glitch from branch
 
+Deployed to: https://cool-char-generator.glitch.me/
+
 This is a recipe to deploy to [Glitch](https://glitch.com) from a branch that isn't master. Basically, you still develop in master but when you're ready to deploy, you first publish your production files to an orphan branch before loading the GitHub repo in Glitch. 
 
 You might find this useful if your project uses a language that compiles to JS, such as ClojureScript, Elm, or ReasonML. In most cases, you cannot install the dev tools for alternative languages on Glitch, but even if you could, it is not generally worthwhile to do so because it drastically increases the install and restart times for your project.
