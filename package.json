@@ -8,7 +8,7 @@
     "server": "nodemon server.js",
     "dev": "concurrently --kill-others-on-fail \"bsb -make-world -w\" \"webpack -w\" \"yarn server\"",
     "clean": "bsb -clean-world",
-    "publish-branch": "node publish.js"
+    "publish-branch": "node scripts/publish.js"
   },
   "keywords": [
     "node",

@@ -1,4 +1,5 @@
 open Belt;
+open CoolCharData;
 
 let str = ReasonReact.string;
 
@@ -7,35 +8,11 @@ type coolChar = {
   caption: string,
 };
 
-[@bs.deriving jsConverter]
-type mode = [
-  | `Hanzi
-  | `Hangul
-  | `Kana
-  | `Devanagari
-  | `Hieroglyphs
-  | `Tibetan
-  | `Emoji
-  | `Any
-];
-
-let coolWritingSystems = [|
-  `Hanzi, `Hangul, `Kana, `Devanagari, `Hieroglyphs, `Tibetan, `Emoji,
-|];
-
-let options = Array.concat([|`Any|], coolWritingSystems);
-
 /* State declaration */
 type state = {
   chars: array(coolChar),
   mode: mode,
 };
-
-/* Action declaration */
-type action =
-  | AddChar
-  | Clear
-  | ChangeMode(mode);
 
 /* Component template declaration.
    Needs to be **after** state and action declarations! */
@@ -44,12 +21,6 @@ let component = ReasonReact.reducerComponent("CoolCharGenerator");
 /* `children` isn't used, therefore ignored.
    We ignore it by prepending it with an underscore */
 let make = (_children) => {
-  let modeFromJsEvent = evt =>
-    switch (evt |. Util.eventTargetValue |. modeFromJs) {
-    | Some(mode) => mode
-    | None => `Any
-    };
-
   let getMode = mode =>
     /* If mode is `Any, then randomly pick a writing system */
     if (mode == `Any) {
@@ -101,24 +72,9 @@ let make = (_children) => {
     ),
 
     render: ({state, send}) => {
-      let changeModeOption = (mode) => {
-        let modeStr = modeToJs(mode);
-        <option key=modeStr value=modeStr>
-          (str(modeStr))
-        </option>
-      };
-
       <div>
-        <div className="form-inline">
-          <select className="form-control mr-2"
-                  value=modeToJs(state.mode)
-                  onChange=(evt => evt |. modeFromJsEvent |. ChangeMode |. send)>
-            (
-              options
-              |. Array.map(changeModeOption)
-              |. ReasonReact.array
-            )
-          </select>
+        <div>
+          <Dropdown value=(state.mode |. modeToJs) send=send />
           <MaterialUi.Button color=`Primary variant=`Raised
                              onClick=(_ => send(AddChar))>
             (str("Generate"))
