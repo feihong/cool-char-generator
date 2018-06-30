@@ -73,17 +73,7 @@ let make = (_children) => {
 
     render: ({state, send}) => {
       <div>
-        <div>
-          <Dropdown value=(state.mode |. modeToJs) send=send />
-          <MaterialUi.Button color=`Primary variant=`Raised
-                             onClick=(_ => send(AddChar))>
-            (str("Generate"))
-          </MaterialUi.Button>
-          <MaterialUi.Button color=`Secondary variant=`Raised
-                             onClick=(_ => send(Clear))>
-            (str("Clear"))
-          </MaterialUi.Button>
-        </div>
+        <ControlPanel value=(state.mode |. modeToJs) send=send />        
         <div className="chars">
           (
             state.chars
