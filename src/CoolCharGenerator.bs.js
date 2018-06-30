@@ -5,86 +5,23 @@ import * as Curry from "bs-platform/lib/es6/curry.js";
 import * as React from "react";
 import * as Printf from "bs-platform/lib/es6/printf.js";
 import * as Belt_Array from "bs-platform/lib/es6/belt_Array.js";
-import * as Js_mapperRt from "bs-platform/lib/es6/js_mapperRt.js";
 import * as ReasonReact from "reason-react/src/ReasonReact.js";
-import * as MaterialUi_Button from "@jsiebern/bs-material-ui/src/MaterialUi_Button.bs.js";
 import * as Util$ReactTemplate from "./Util.bs.js";
 import * as Emoji$ReactTemplate from "./Emoji.bs.js";
 import * as IntlChar$ReactTemplate from "./IntlChar.bs.js";
+import * as ControlPanel$ReactTemplate from "./ControlPanel.bs.js";
+import * as CoolCharData$ReactTemplate from "./CoolCharData.bs.js";
 
 function str(prim) {
   return prim;
 }
 
-var jsMapperConstantArray = /* array */[
-  /* tuple */[
-    -790390071,
-    "Tibetan"
-  ],
-  /* tuple */[
-    -325826967,
-    "Hangul"
-  ],
-  /* tuple */[
-    3257036,
-    "Any"
-  ],
-  /* tuple */[
-    50782054,
-    "Emoji"
-  ],
-  /* tuple */[
-    83233512,
-    "Hieroglyphs"
-  ],
-  /* tuple */[
-    90688528,
-    "Devanagari"
-  ],
-  /* tuple */[
-    836565865,
-    "Kana"
-  ],
-  /* tuple */[
-    894130468,
-    "Hanzi"
-  ]
-];
-
-function modeToJs(param) {
-  return Js_mapperRt.binarySearch(8, param, jsMapperConstantArray);
-}
-
-function modeFromJs(param) {
-  return Js_mapperRt.revSearch(8, jsMapperConstantArray, param);
-}
-
-var coolWritingSystems = /* array */[
-  /* Hanzi */894130468,
-  /* Hangul */-325826967,
-  /* Kana */836565865,
-  /* Devanagari */90688528,
-  /* Hieroglyphs */83233512,
-  /* Tibetan */-790390071,
-  /* Emoji */50782054
-];
-
-var options = Belt_Array.concat(/* array */[/* Any */3257036], coolWritingSystems);
-
 var component = ReasonReact.reducerComponent("CoolCharGenerator");
 
 function make() {
-  var modeFromJsEvent = function (evt) {
-    var match = modeFromJs(Util$ReactTemplate.eventTargetValue(evt));
-    if (match) {
-      return match[0];
-    } else {
-      return /* Any */3257036;
-    }
-  };
   var getMode = function (mode) {
     if (mode === /* Any */3257036) {
-      return Util$ReactTemplate.chooseFromArray(coolWritingSystems);
+      return Util$ReactTemplate.chooseFromArray(CoolCharData$ReactTemplate.coolWritingSystems);
     } else {
       return mode;
     }
@@ -180,28 +117,8 @@ function make() {
           /* willUpdate */component[/* willUpdate */7],
           /* shouldUpdate */component[/* shouldUpdate */8],
           /* render */(function (param) {
-              var send = param[/* send */3];
               var state = param[/* state */1];
-              var changeModeOption = function (mode) {
-                var modeStr = modeToJs(mode);
-                return React.createElement("option", {
-                            key: modeStr,
-                            value: modeStr
-                          }, modeStr);
-              };
-              return React.createElement("div", undefined, React.createElement("div", {
-                              className: "form-inline"
-                            }, React.createElement("select", {
-                                  className: "form-control mr-2",
-                                  value: modeToJs(state[/* mode */1]),
-                                  onChange: (function (evt) {
-                                      return Curry._1(send, /* ChangeMode */[modeFromJsEvent(evt)]);
-                                    })
-                                }, Belt_Array.map(options, changeModeOption)), ReasonReact.element(/* None */0, /* None */0, MaterialUi_Button.make(/* None */0, /* Some */[/* Primary */-791844958], /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* Some */[/* Raised */-387916264], /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* Some */[(function () {
-                                          return Curry._1(send, /* AddChar */0);
-                                        })], /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* array */["Generate"])), ReasonReact.element(/* None */0, /* None */0, MaterialUi_Button.make(/* None */0, /* Some */[/* Secondary */67972948], /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* Some */[/* Raised */-387916264], /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* Some */[(function () {
-                                          return Curry._1(send, /* Clear */1);
-                                        })], /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* array */["Clear"]))), React.createElement("div", {
+              return React.createElement("div", undefined, ReasonReact.element(/* None */0, /* None */0, ControlPanel$ReactTemplate.make(CoolCharData$ReactTemplate.modeToJs(state[/* mode */1]), param[/* send */3], /* array */[])), React.createElement("div", {
                               className: "chars"
                             }, Belt_Array.mapWithIndex(state[/* chars */0], (function (i, cc) {
                                     return React.createElement("span", {
@@ -244,12 +161,8 @@ function make() {
 
 export {
   str ,
-  modeToJs ,
-  modeFromJs ,
-  coolWritingSystems ,
-  options ,
   component ,
   make ,
   
 }
-/* options Not a pure module */
+/* component Not a pure module */

@@ -36,8 +36,12 @@ function main() {
   text = text.replace('"devDependencies":', '"/*devDependencies*/":')
   fs.writeFileSync('dist/package.json', text, 'utf-8')
   
-  ghpages.publish('dist', {branch: PUBLISH_BRANCH}, err => console.log(err))
-  console.log(`Published production build to ${PUBLISH_BRANCH} branch`)
+  ghpages.publish('dist', {branch: PUBLISH_BRANCH}, err => {
+    if (err) 
+      console.log(`Error: ${err}`)
+    else 
+      console.log(`Published production build to ${PUBLISH_BRANCH} branch`)
+  })  
 }
 
 main()
