@@ -1,6 +1,7 @@
 .chars span {
   margin-right: 1rem;
   font-size: 3rem;
+  cursor: pointer;
 }
 
 .subtitle {
@@ -12,4 +13,17 @@
 .subtitle a {
   color: gray;
   text-decoration: underline;
+}
+
+.popover-content {
+  padding: 0 1rem 0.5rem 1rem;
+}
+
+.popover-content .text {
+  font-size: 5.5rem;
+  text-align: center;
+}
+
+.popover-content .caption {
+  font-size: 0.75rem;
 }

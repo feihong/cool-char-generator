@@ -5,7 +5,9 @@ import * as Curry from "bs-platform/lib/es6/curry.js";
 import * as React from "react";
 import * as Printf from "bs-platform/lib/es6/printf.js";
 import * as Belt_Array from "bs-platform/lib/es6/belt_Array.js";
+import * as Belt_Option from "bs-platform/lib/es6/belt_Option.js";
 import * as ReasonReact from "reason-react/src/ReasonReact.js";
+import * as MaterialUi_Popover from "@jsiebern/bs-material-ui/src/MaterialUi_Popover.bs.js";
 import * as Util$ReactTemplate from "./Util.bs.js";
 import * as Emoji$ReactTemplate from "./Emoji.bs.js";
 import * as IntlChar$ReactTemplate from "./IntlChar.bs.js";
@@ -84,26 +86,34 @@ function make() {
       return /* record */[
               /* text */ic[/* text */0],
               /* caption */Curry._2(Printf.sprintf(/* Format */[
-                        /* String_literal */Block.__(11, [
-                            "Writing system: ",
-                            /* String */Block.__(2, [
-                                /* No_padding */0,
-                                /* String_literal */Block.__(11, [
-                                    ", Code point: ",
-                                    /* Int */Block.__(4, [
-                                        /* Int_d */0,
-                                        /* No_padding */0,
-                                        /* No_precision */0,
-                                        /* End_of_format */0
-                                      ])
+                        /* String */Block.__(2, [
+                            /* No_padding */0,
+                            /* String_literal */Block.__(11, [
+                                " - ",
+                                /* Int */Block.__(4, [
+                                    /* Int_d */0,
+                                    /* No_padding */0,
+                                    /* No_precision */0,
+                                    /* End_of_format */0
                                   ])
                               ])
                           ]),
-                        "Writing system: %s, Code point: %d"
+                        "%s - %d"
                       ]), ic[/* writingSystem */1], ic[/* ordinal */2])
             ];
     }
     
+  };
+  var popoverClose = function (_, self) {
+    return Curry._1(self[/* send */3], /* ClosePopup */2);
+  };
+  var convertAnchorEl = function (maybeEl) {
+    return Belt_Option.map(maybeEl, (function (el) {
+                  return /* `ObjectGeneric */[
+                          -317959944,
+                          el
+                        ];
+                }));
   };
   return /* record */[
           /* debugName */component[/* debugName */0],
@@ -117,41 +127,85 @@ function make() {
           /* willUnmount */component[/* willUnmount */6],
           /* willUpdate */component[/* willUpdate */7],
           /* shouldUpdate */component[/* shouldUpdate */8],
-          /* render */(function (param) {
-              var state = param[/* state */1];
-              return React.createElement("div", undefined, ReasonReact.element(/* None */0, /* None */0, ControlPanel$ReactTemplate.make(CoolCharData$ReactTemplate.modeToJs(state[/* mode */1]), param[/* send */3], /* array */[])), React.createElement("div", {
+          /* render */(function (self) {
+              var state = self[/* state */1];
+              return React.createElement("div", undefined, ReasonReact.element(/* None */0, /* None */0, MaterialUi_Popover.make(/* None */0, convertAnchorEl(state[/* anchorEl */2]), /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* Some */[Curry._1(self[/* handle */0], popoverClose)], /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, Belt_Option.isSome(state[/* anchorEl */2]), /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* array */[React.createElement("div", {
+                                        className: "popover-content"
+                                      }, React.createElement("div", {
+                                            className: "text"
+                                          }, state[/* popupChar */3][/* text */0]), React.createElement("div", {
+                                            className: "caption"
+                                          }, state[/* popupChar */3][/* caption */1]))])), ReasonReact.element(/* None */0, /* None */0, ControlPanel$ReactTemplate.make(CoolCharData$ReactTemplate.modeToJs(state[/* mode */1]), self[/* send */3], /* array */[])), React.createElement("div", {
                               className: "chars"
                             }, Belt_Array.mapWithIndex(state[/* chars */0], (function (i, cc) {
                                     return React.createElement("span", {
                                                 key: String(i),
-                                                title: cc[/* caption */1]
+                                                title: cc[/* caption */1],
+                                                onClick: (function (evt) {
+                                                    var evt$1 = evt;
+                                                    var cc$1 = cc;
+                                                    var self$1 = self;
+                                                    var el = evt$1.target;
+                                                    return Curry._1(self$1[/* send */3], /* OpenPopup */Block.__(1, [/* tuple */[
+                                                                    el,
+                                                                    cc$1
+                                                                  ]]));
+                                                  })
                                               }, cc[/* text */0]);
                                   }))));
             }),
           /* initialState */(function () {
               return /* record */[
                       /* chars : array */[],
-                      /* mode : Any */3257036
+                      /* mode : Any */3257036,
+                      /* anchorEl : None */0,
+                      /* popupChar : record */[
+                        /* text */"?",
+                        /* caption */"?"
+                      ]
                     ];
             }),
           /* retainedProps */component[/* retainedProps */11],
           /* reducer */(function (action, state) {
               if (typeof action === "number") {
-                if (action !== 0) {
-                  return /* Update */Block.__(0, [/* record */[
-                              /* chars : array */[],
-                              /* mode */state[/* mode */1]
-                            ]]);
-                } else {
-                  return /* Update */Block.__(0, [/* record */[
-                              /* chars */Belt_Array.concat(state[/* chars */0], /* array */[getCoolChar(state[/* mode */1])]),
-                              /* mode */state[/* mode */1]
-                            ]]);
+                switch (action) {
+                  case 0 : 
+                      return /* Update */Block.__(0, [/* record */[
+                                  /* chars */Belt_Array.concat(state[/* chars */0], /* array */[getCoolChar(state[/* mode */1])]),
+                                  /* mode */state[/* mode */1],
+                                  /* anchorEl */state[/* anchorEl */2],
+                                  /* popupChar */state[/* popupChar */3]
+                                ]]);
+                  case 1 : 
+                      return /* Update */Block.__(0, [/* record */[
+                                  /* chars : array */[],
+                                  /* mode */state[/* mode */1],
+                                  /* anchorEl */state[/* anchorEl */2],
+                                  /* popupChar */state[/* popupChar */3]
+                                ]]);
+                  case 2 : 
+                      return /* Update */Block.__(0, [/* record */[
+                                  /* chars */state[/* chars */0],
+                                  /* mode */state[/* mode */1],
+                                  /* anchorEl : None */0,
+                                  /* popupChar */state[/* popupChar */3]
+                                ]]);
+                  
                 }
+              } else if (action.tag) {
+                var match = action[0];
+                return /* Update */Block.__(0, [/* record */[
+                            /* chars */state[/* chars */0],
+                            /* mode */state[/* mode */1],
+                            /* anchorEl : Some */[match[0]],
+                            /* popupChar */match[1]
+                          ]]);
               } else {
                 return /* Update */Block.__(0, [/* record */[
                             /* chars */state[/* chars */0],
-                            /* mode */action[0]
+                            /* mode */action[0],
+                            /* anchorEl */state[/* anchorEl */2],
+                            /* popupChar */state[/* popupChar */3]
                           ]]);
               }
             }),

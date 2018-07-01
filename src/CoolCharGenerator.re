@@ -3,15 +3,12 @@ open CoolCharData;
 
 let str = ReasonReact.string;
 
-type coolChar = {
-  text: string,
-  caption: string,
-};
-
 /* State declaration */
 type state = {
   chars: array(coolChar),
-  mode: mode,
+  mode: mode,  
+  anchorEl: option(Dom.element),
+  popupChar: coolChar,
 };
 
 /* Component template declaration.
@@ -37,11 +34,25 @@ let make = (_children) => {
     | (`Hanzi|`Hangul|`Kana|`Devanagari|`Hieroglyphs|`Tibetan) as writingSys => 
         IntlChar.getIntlChar(writingSys) |> ic => {
           text: ic.text,
-          caption: Printf.sprintf("Writing system: %s, Code point: %d", 
-                                  ic.writingSystem, ic.ordinal),
+          caption: Printf.sprintf("%s - %d", ic.writingSystem, ic.ordinal),
         }
     | _ => {text: "?", caption: "?"}
     };
+
+  let popoverClose =  (_evt, self) =>
+    self.ReasonReact.send(ClosePopup);
+
+  let charClick = (evt, cc, self) => {
+    let el = evt |. ReactEventRe.Mouse.target;
+    (el, cc) |. OpenPopup |. self.ReasonReact.send;
+  };
+
+  /* Convert the given option(Dom.element) to the form preferred by 
+     MaterialUi.Popover's anchorEl argument */
+  let convertAnchorEl = maybeEl =>
+    maybeEl |. Option.map(
+      el => `ObjectGeneric(el |. ReactDOMRe.domElementToObj));
+
   {
     /* spread the other default fields of component here and override a few */
     ...component,
@@ -49,6 +60,8 @@ let make = (_children) => {
     initialState: () => {
       chars: [||],
       mode: `Any,
+      anchorEl: None,
+      popupChar: {text: "?", caption: "?"},
     },
 
     didMount: self => self.send(AddChar),
@@ -62,17 +75,32 @@ let make = (_children) => {
             })
         | Clear => Update({...state, chars: [||]})
         | ChangeMode(mode) => Update({...state, mode: mode})
+        | OpenPopup((el, cc)) => Update({...state, anchorEl: Some(el), popupChar: cc})
+        | ClosePopup => Update({...state, anchorEl: None})
       }
     ),
 
-    render: ({state, send}) => {
+    render: ({state, send} as self) => {
       <div>
+      <MaterialUi.Popover open_=Option.isSome(state.anchorEl)
+                          onClose=self.handle(popoverClose)
+                          anchorEl=?convertAnchorEl(state.anchorEl)>
+          <div className="popover-content">
+            <div className="text">
+              (str(state.popupChar.text))
+            </div>
+            <div className="caption">
+              (str(state.popupChar.caption))
+            </div>
+          </div>
+        </MaterialUi.Popover>
         <ControlPanel value=(state.mode |. modeToJs) send=send />        
         <div className="chars">
           (
             state.chars
             |. Array.mapWithIndex((i, cc) =>
-                <span key=string_of_int(i) title=cc.caption>
+                <span key=string_of_int(i) title=cc.caption 
+                      onClick=(evt => charClick(evt, cc, self))>
                   (str(cc.text))
                 </span>)
             |. ReasonReact.array
