@@ -33,16 +33,15 @@ type writingSystem = [
 
 let getCharFromRange = (min, max) => {
   let ordinal = Util.randomIntRange(min, max);
-  let text = Util.fromCodePoint(ordinal);
+  let text = Util.stringFromCodePoint(ordinal);
   (text, ordinal)
 };
 
 let getCharFromCodePoints = codePoints => {
   let ordinal = Util.chooseFromArray(codePoints);
-  let text = Util.fromCodePoint(ordinal);
+  let text = Util.stringFromCodePoint(ordinal);
   (text, ordinal)
 };
-  
 
 let kanaCodePoints = [%bs.raw {|
   'ァアィイゥウェエォオカグケゲコゴサザシジスズセダチヂッツヅテデトドナニバパヒビピフブプヘベペホムメモャヤュユョヨラリルヰヱヲンヴヵヶヷヸヹヺぁあぃいぅうぇえぉおかぐけげこごさざしじすずせだちぢっつづてでとどなにばぱひびぴふぶぷへべぺほむめもゃやゅゆょよらりるゐゑをんゔゕゖ'
