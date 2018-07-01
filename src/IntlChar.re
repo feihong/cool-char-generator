@@ -1,3 +1,18 @@
+/**
+ * Unicode code block references:
+ * 
+ * https://en.wikipedia.org/wiki/CJK_Unified_Ideographs_(Unicode_block)
+ * https://en.wikipedia.org/wiki/Katakana_(Unicode_block)
+ * https://en.wikipedia.org/wiki/Hiragana_(Unicode_block)
+ * https://en.wikipedia.org/wiki/Hangul_Syllables
+ * https://en.wikipedia.org/wiki/Devanagari_(Unicode_block)
+ * https://en.wikipedia.org/wiki/Egyptian_Hieroglyphs_(Unicode_block)
+ * https://en.wikipedia.org/wiki/Cuneiform_(Unicode_block)
+ * https://en.wikipedia.org/wiki/Old_Persian_(Unicode_block)
+ * https://en.wikipedia.org/wiki/Tibetan_(Unicode_block)
+ * 
+ */
+
 type intlChar = {
   text: string,
   writingSystem: string,
@@ -30,7 +45,7 @@ let getCharFromCodePoints = codePoints => {
   
 
 let kanaCodePoints = [%bs.raw {|
-  '゠ァアィイゥウェエォオカグケゲコゴサザシジスズセダチヂッツヅテデトドナニバパヒビピフブプヘベペホムメモャヤュユョヨラリルヰヱヲンヴヵヶヷヸヹヺぁあぃいぅうぇえぉおかぐけげこごさざしじすずせだちぢっつづてでとどなにばぱひびぴふぶぷへべぺほむめもゃやゅゆょよらりるゐゑをんゔゕゖ'
+  'ァアィイゥウェエォオカグケゲコゴサザシジスズセダチヂッツヅテデトドナニバパヒビピフブプヘベペホムメモャヤュユョヨラリルヰヱヲンヴヵヶヷヸヹヺぁあぃいぅうぇえぉおかぐけげこごさざしじすずせだちぢっつづてでとどなにばぱひびぴふぶぷへべぺほむめもゃやゅゆょよらりるゐゑをんゔゕゖ'
 |}] |. Util.stringToCodePoints;
 
 let devanagariCodePoints = [%bs.raw {|
@@ -51,18 +66,12 @@ let getIntlChar = writingSys => {
   let (text, ordinal) = 
     switch (writingSys) {
     | `Hanzi => getCharFromRange(0x4e00, 0x9fff)
-    /* https://en.wikipedia.org/wiki/Hangul_Syllables */  
     | `Hangul => getCharFromRange(0xAC00, 0xD7AF)
     | `Kana => getCharFromCodePoints(kanaCodePoints)
-    /* https://en.wikipedia.org/wiki/Devanagari_(Unicode_block) */
     | `Devanagari => getCharFromCodePoints(devanagariCodePoints)
-    /* https://en.wikipedia.org/wiki/Egyptian_Hieroglyphs_(Unicode_block) */
     | `Hieroglyphs => getCharFromRange(0x13000, 0x1342E)
-    /* https://en.wikipedia.org/wiki/Cuneiform_(Unicode_block) */
     | `Cuneiform => getCharFromRange(0x12000, 0x123FF)
-    /* https://en.wikipedia.org/wiki/Old_Persian_(Unicode_block) */
     | `OldPersian => getCharFromCodePoints(oldPersianCodePoints)
-    /* https://en.wikipedia.org/wiki/Tibetan_(Unicode_block) */
     | `Tibetan => getCharFromCodePoints(tibetanCodePoints)
   };
   let label = writingSystemToJs(writingSys);

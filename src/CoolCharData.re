@@ -16,7 +16,7 @@ let coolWritingSystems: array(mode) = [|
   `Hanzi, `Hangul, `Kana, `Devanagari, `Hieroglyphs, `Tibetan, `Emoji,
 |];
 
-let options = Array.concat([|`Any|], coolWritingSystems);
+let dropdownOptions = Array.concat([|`Any|], coolWritingSystems);
 
 /* Action declaration */
 type action =

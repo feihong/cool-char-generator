@@ -23,29 +23,23 @@ let component = ReasonReact.reducerComponent("CoolCharGenerator");
 let make = (_children) => {
   let getMode = mode =>
     /* If mode is `Any, then randomly pick a writing system */
-    if (mode == `Any) {
-      coolWritingSystems |. Util.chooseFromArray
-    } else {
-      mode
-    }
+    (mode == `Any) 
+      ? coolWritingSystems |. Util.chooseFromArray
+      : mode;
 
   let getCoolChar = mode => 
     switch(getMode(mode)) {
-    | `Emoji => {
-        let emoji = Emoji.getEmoji();
-        {
-          text: emoji.text,
-          caption: Printf.sprintf("%s (%s)", emoji.shortname, emoji.category),
+    | `Emoji => 
+        Emoji.getEmoji() |> e => {
+          text: e.text,
+          caption: Printf.sprintf("%s (%s)", e.shortname, e.category),
         }
-      }
-    | (`Hanzi|`Hangul|`Kana|`Devanagari|`Hieroglyphs|`Tibetan) as writingSys => {
-        let ic = IntlChar.getIntlChar(writingSys);
-        {
+    | (`Hanzi|`Hangul|`Kana|`Devanagari|`Hieroglyphs|`Tibetan) as writingSys => 
+        IntlChar.getIntlChar(writingSys) |> ic => {
           text: ic.text,
           caption: Printf.sprintf("Writing system: %s, Code point: %d", 
                                   ic.writingSystem, ic.ordinal),
-        }      
-      }
+        }
     | _ => {text: "?", caption: "?"}
     };
   {
@@ -81,7 +75,7 @@ let make = (_children) => {
                 <span key=string_of_int(i) title=cc.caption>
                   (str(cc.text))
                 </span>)
-            |> ReasonReact.array
+            |. ReasonReact.array
           )
         </div>
       </div>;

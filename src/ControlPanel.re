@@ -22,29 +22,27 @@ let make = (~value, ~send, _children) => {
                     onChange=((evt, _) => 
                       evt |. modeFromJsEvent |. ChangeMode |. send)>
               (
-                options 
-                |. Array.map(mode => {
-                  let modeStr = mode |. modeToJs;
-                  <MenuItem key=modeStr value=`String(modeStr)>
-                    (str(modeToJs(mode)))
-                  </MenuItem>
-                })
-                |. ReasonReact.array
+                dropdownOptions 
+                |. Array.map(mode => mode |. modeToJs |. label =>                  
+                    <MenuItem key=label value=`String(label)>
+                      (str(label))
+                    </MenuItem>
+                   )
               )
             </Select>
           </FormControl>
         </Grid>
         <Grid item=true>
-          <MaterialUi.Button color=`Primary variant=`Raised
+          <Button color=`Primary variant=`Raised
                 onClick=(_ => send(AddChar))>
             (str("Generate"))
-          </MaterialUi.Button>
+          </Button>
         </Grid>
         <Grid item=true>
-          <MaterialUi.Button color=`Secondary variant=`Raised
+          <Button color=`Secondary variant=`Raised
                 onClick=(_ => send(Clear))>
             (str("Clear"))
-          </MaterialUi.Button>
+          </Button>
         </Grid>
       </Grid>
     )

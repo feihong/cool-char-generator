@@ -21,5 +21,6 @@ let stringToCodePoints: string => array(int) =
     }
   |}];
 
+/* Equivalent to evt.target.value */
 let eventTargetValue = evt => 
   (evt |. ReactEventRe.Form.target |. ReactDOMRe.domElementToObj)##value;
