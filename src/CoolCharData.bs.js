@@ -56,13 +56,13 @@ var coolWritingSystems = /* array */[
   /* Emoji */50782054
 ];
 
-var options = Belt_Array.concat(/* array */[/* Any */3257036], coolWritingSystems);
+var dropdownOptions = Belt_Array.concat(/* array */[/* Any */3257036], coolWritingSystems);
 
 export {
   modeToJs ,
   modeFromJs ,
   coolWritingSystems ,
-  options ,
+  dropdownOptions ,
   
 }
-/* options Not a pure module */
+/* dropdownOptions Not a pure module */

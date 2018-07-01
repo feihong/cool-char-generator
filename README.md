@@ -1,31 +1,42 @@
-# Deploy to Glitch from branch
+# Cool Character Generator
 
 Deployed to: https://cool-char-generator.glitch.me/
 
-This is a recipe to deploy to [Glitch](https://glitch.com) from a branch that isn't master. Basically, you still develop in master but when you're ready to deploy, you first publish your production files to an orphan branch before loading the GitHub repo in Glitch. 
+This is a simple ReasonReact app that randomly generates visually interesting characters from various writing systems. It makes use of the [Material-UI] React component library.
 
-You might find this useful if your project uses a language that compiles to JS, such as ClojureScript, Elm, or ReasonML. In most cases, you cannot install the dev tools for alternative languages on Glitch, but even if you could, it is not generally worthwhile to do so because it drastically increases the install and restart times for your project.
+This project does not run directly on [Glitch](https://glitch.com) because `bs-platform` cannot be installed there. However, it can be imported into Glitch by way of a default orphan branch. See the [deploy recipe](DEPLOY.md) for more details.
 
-The main differences between the deploy branch and master are:
+## Prerequisites
 
-- Your compiled JS files are included, e.g. Index.bs.js, bundle.js
-- The devDependencies section of your package.json is commented out, preventing Glitch from installing any packages in it
+    yarn global add bs-platform
+    yarn install
 
-This project assumes that you are using Reason and your deploy branch is called glitch, but you can change that by editing `publish.js`, `package.json`,  and deleting `bsconfig.json` (if using a language that isn't Reason).
+## Scripts
 
-# Instructions
+Start the server (only used on Glitch)
 
-These instructions assume you already created a git repository and committed some files to the master branch.
+    npm start
 
-1. Create orphan branch called `glitch` that you can publish to.
-    ```sh
-    git checkout --orphan 
-    git reset HEAD -- .  # remove everything from stage
-    git add README.md
-    git commit -m "Initial commit"
-    git push origin glitch
-    ```
-1. In your GitHub project, go to Settings > Branches and make glitch your default branch.
-1. In Glitch, go to Advanced Options > Import from GitHub, and enter the name of your project, e.g. `feihong/glitch-deploy-branch`. It should load the files from your glitch branch, not from master.
+Run the auto-reloading development server and automatically recompile .re files
 
-If the files don't get copied over to the orphan branch as expected, run `yarn gh-pages-clean` to clear the cache files stored in `node_modules/gh-pages/.cache`.
+    yarn dev
+
+Build
+
+    yarn build
+
+Build for production
+
+    yarn build:production
+
+Run auto-reloading development server
+
+    yarn server
+
+Publish to orphan branch on GitHub
+
+    yarn publish-branch
+
+Clean compiled files and the gh-pages cache
+
+    yarn clean

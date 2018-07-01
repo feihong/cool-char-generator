@@ -1,7 +1,7 @@
 open Belt;
 
 /* Convert Unicode code point to corresponding string */
-[@bs.val] external fromCodePoint : int => string = "String.fromCodePoint";
+[@bs.val] external stringFromCodePoint : int => string = "String.fromCodePoint";
 
 /* Return an integer between min and max (inclusive) */
 let randomIntRange = (min, max) =>
@@ -21,5 +21,6 @@ let stringToCodePoints: string => array(int) =
     }
   |}];
 
+/* Equivalent to evt.target.value */
 let eventTargetValue = evt => 
   (evt |. ReactEventRe.Form.target |. ReactDOMRe.domElementToObj)##value;

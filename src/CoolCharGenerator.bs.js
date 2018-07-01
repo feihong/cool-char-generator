@@ -20,7 +20,8 @@ var component = ReasonReact.reducerComponent("CoolCharGenerator");
 
 function make() {
   var getMode = function (mode) {
-    if (mode === /* Any */3257036) {
+    var match = mode === /* Any */3257036;
+    if (match) {
       return Util$ReactTemplate.chooseFromArray(CoolCharData$ReactTemplate.coolWritingSystems);
     } else {
       return mode;
@@ -54,9 +55,9 @@ function make() {
                 /* caption */"?"
               ];
       } else {
-        var emoji = Emoji$ReactTemplate.getEmoji(/* () */0);
+        var e = Emoji$ReactTemplate.getEmoji(/* () */0);
         return /* record */[
-                /* text */emoji[/* text */1],
+                /* text */e[/* text */1],
                 /* caption */Curry._2(Printf.sprintf(/* Format */[
                           /* String */Block.__(2, [
                               /* No_padding */0,
@@ -72,7 +73,7 @@ function make() {
                                 ])
                             ]),
                           "%s (%s)"
-                        ]), emoji[/* shortname */0], emoji[/* category */2])
+                        ]), e[/* shortname */0], e[/* category */2])
               ];
       }
     } else {

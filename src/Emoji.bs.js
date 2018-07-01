@@ -8,14 +8,14 @@ function getItems() {
   return Belt_Array.keepMap(Object.keys(emojione.emojioneList), (function (shortname) {
                 var match = emojione.emojioneList[shortname];
                 if (match !== undefined) {
-                  var match$1 = match.category === "flags";
+                  var match$1 = match.category !== "flags";
                   if (match$1) {
-                    return /* None */0;
-                  } else {
                     return /* Some */[/* tuple */[
                               shortname,
                               match
                             ]];
+                  } else {
+                    return /* None */0;
                   }
                 } else {
                   return /* None */0;
