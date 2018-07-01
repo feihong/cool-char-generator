@@ -13,6 +13,8 @@
  * 
  */
 
+open Util;
+
 type intlChar = {
   text: string,
   writingSystem: string,
@@ -33,27 +35,27 @@ type writingSystem = [
 
 let getCharFromRange = (min, max) => {
   let ordinal = Util.randomIntRange(min, max);
-  let text = Util.stringFromCodePoint(ordinal);
+  let text = String.fromCodePoint(ordinal);
   (text, ordinal)
 };
 
 let getCharFromCodePoints = codePoints => {
   let ordinal = Util.chooseFromArray(codePoints);
-  let text = Util.stringFromCodePoint(ordinal);
+  let text = String.fromCodePoint(ordinal);
   (text, ordinal)
 };
 
 let kanaCodePoints = [%bs.raw {|
   'ァアィイゥウェエォオカグケゲコゴサザシジスズセダチヂッツヅテデトドナニバパヒビピフブプヘベペホムメモャヤュユョヨラリルヰヱヲンヴヵヶヷヸヹヺぁあぃいぅうぇえぉおかぐけげこごさざしじすずせだちぢっつづてでとどなにばぱひびぴふぶぷへべぺほむめもゃやゅゆょよらりるゐゑをんゔゕゖ'
-|}] |. Util.stringToCodePoints;
+|}] |. String.toCodePoints;
 
 let devanagariCodePoints = [%bs.raw {|
   'ऄअआइईउऊऋऌऍऎएऐऑऒओऔकखगघङचछजझञटठडढणतथदधनऩपफबभमयरऱलळऴवशषसहऽॐकखगजडढफयॠॡ१२३४५६७८९ॲॳॴॵॶॷॸॹॺॻॼॽॾॿ'
-|}] |. Util.stringToCodePoints;
+|}] |. String.toCodePoints;
 
 let tibetanCodePoints = [%bs.raw {|
   'ༀ༁༂༃༄༅༆༇༈༉༊༒༓༔༕༖༗༘༜༡༢༣༤༥༦༧༨༩༪༫༬༭༮༯༰༱༲༳༴༸༺༻༼༽ཀཁགགངཅཆཇཉཊཋཌཌཎཏཐདདནཔཕབབམཙཚཛཛཝཞཟའཡརལཤཥསཧཨཀཪཫཬིཻོཽྀ྅ྈྉྊྋ྿࿂࿃࿄࿅࿇࿈࿉࿊࿋࿌࿏࿐࿑࿓࿔࿕࿖࿗࿘'
-|}] |. Util.stringToCodePoints;
+|}] |. String.toCodePoints;
 
 /* The characters for Old Persian can't be pasted into a code editor, so we
    just use the code points directly */
