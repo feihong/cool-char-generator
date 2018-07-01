@@ -18,8 +18,15 @@ let coolWritingSystems: array(mode) = [|
 
 let dropdownOptions = Array.concat([|`Any|], coolWritingSystems);
 
+type coolChar = {
+  text: string,
+  caption: string,
+};
+
 /* Action declaration */
 type action =
   | AddChar
   | Clear
-  | ChangeMode(mode);
+  | ChangeMode(mode)
+  | OpenPopup((Dom.element, coolChar))   /* anchor element, popup char */
+  | ClosePopup;
