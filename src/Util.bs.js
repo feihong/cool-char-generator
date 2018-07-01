@@ -3,6 +3,23 @@
 import * as Random from "bs-platform/lib/es6/random.js";
 import * as Belt_Array from "bs-platform/lib/es6/belt_Array.js";
 
+var toCodePoints = (
+      function (text) {
+        return [...text].map(s => s.charCodeAt(0))
+      }
+    );
+
+var replace = (
+      function (s, a, b) {
+        return s.replace(new RegExp(a, 'g'), b)
+      }
+    );
+
+var $$String = /* module */[
+  /* toCodePoints */toCodePoints,
+  /* replace */replace
+];
+
 function randomIntRange(min, max) {
   return Random.$$int((max - min | 0) + 1 | 0) + min | 0;
 }
@@ -12,21 +29,15 @@ function chooseFromArray(array) {
   return Belt_Array.getExn(array, index);
 }
 
-var stringToCodePoints = (
-    function (text) {
-      return [...text].map(s => s.charCodeAt(0))
-    }
-  );
-
 function eventTargetValue(evt) {
   return evt.target.value;
 }
 
 export {
+  $$String ,
   randomIntRange ,
   chooseFromArray ,
-  stringToCodePoints ,
   eventTargetValue ,
   
 }
-/* stringToCodePoints Not a pure module */
+/* toCodePoints Not a pure module */

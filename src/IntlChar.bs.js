@@ -65,15 +65,15 @@ function getCharFromCodePoints(codePoints) {
         ];
 }
 
-var kanaCodePoints = Curry._1(Util$ReactTemplate.stringToCodePoints, (
+var kanaCodePoints = Curry._1(Util$ReactTemplate.$$String[/* toCodePoints */0], (
   'ァアィイゥウェエォオカグケゲコゴサザシジスズセダチヂッツヅテデトドナニバパヒビピフブプヘベペホムメモャヤュユョヨラリルヰヱヲンヴヵヶヷヸヹヺぁあぃいぅうぇえぉおかぐけげこごさざしじすずせだちぢっつづてでとどなにばぱひびぴふぶぷへべぺほむめもゃやゅゆょよらりるゐゑをんゔゕゖ'
 ));
 
-var devanagariCodePoints = Curry._1(Util$ReactTemplate.stringToCodePoints, (
+var devanagariCodePoints = Curry._1(Util$ReactTemplate.$$String[/* toCodePoints */0], (
   'ऄअआइईउऊऋऌऍऎएऐऑऒओऔकखगघङचछजझञटठडढणतथदधनऩपफबभमयरऱलळऴवशषसहऽॐकखगजडढफयॠॡ१२३४५६७८९ॲॳॴॵॶॷॸॹॺॻॼॽॾॿ'
 ));
 
-var tibetanCodePoints = Curry._1(Util$ReactTemplate.stringToCodePoints, (
+var tibetanCodePoints = Curry._1(Util$ReactTemplate.$$String[/* toCodePoints */0], (
   'ༀ༁༂༃༄༅༆༇༈༉༊༒༓༔༕༖༗༘༜༡༢༣༤༥༦༧༨༩༪༫༬༭༮༯༰༱༲༳༴༸༺༻༼༽ཀཁགགངཅཆཇཉཊཋཌཌཎཏཐདདནཔཕབབམཙཚཛཛཝཞཟའཡརལཤཥསཧཨཀཪཫཬིཻོཽྀ྅ྈྉྊྋ྿࿂࿃࿄࿅࿇࿈࿉࿊࿋࿌࿏࿐࿑࿓࿔࿕࿖࿗࿘'
 ));
 

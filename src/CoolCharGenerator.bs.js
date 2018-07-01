@@ -104,9 +104,6 @@ function make() {
     }
     
   };
-  var popoverClose = function (_, self) {
-    return Curry._1(self[/* send */3], /* ClosePopup */2);
-  };
   var convertAnchorEl = function (maybeEl) {
     return Belt_Option.map(maybeEl, (function (el) {
                   return /* `ObjectGeneric */[
@@ -128,14 +125,17 @@ function make() {
           /* willUpdate */component[/* willUpdate */7],
           /* shouldUpdate */component[/* shouldUpdate */8],
           /* render */(function (self) {
+              var send = self[/* send */3];
               var state = self[/* state */1];
-              return React.createElement("div", undefined, ReasonReact.element(/* None */0, /* None */0, MaterialUi_Popover.make(/* None */0, convertAnchorEl(state[/* anchorEl */2]), /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* Some */[Curry._1(self[/* handle */0], popoverClose)], /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, Belt_Option.isSome(state[/* anchorEl */2]), /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* array */[React.createElement("div", {
+              return React.createElement("div", undefined, ReasonReact.element(/* None */0, /* None */0, MaterialUi_Popover.make(/* None */0, convertAnchorEl(state[/* anchorEl */2]), /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* Some */[(function () {
+                                      return Curry._1(send, /* ClosePopup */2);
+                                    })], /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, Belt_Option.isSome(state[/* anchorEl */2]), /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* array */[React.createElement("div", {
                                         className: "popover-content"
                                       }, React.createElement("div", {
                                             className: "text"
                                           }, state[/* popupChar */3][/* text */0]), React.createElement("div", {
                                             className: "caption"
-                                          }, state[/* popupChar */3][/* caption */1]))])), ReasonReact.element(/* None */0, /* None */0, ControlPanel$ReactTemplate.make(CoolCharData$ReactTemplate.modeToJs(state[/* mode */1]), self[/* send */3], /* array */[])), React.createElement("div", {
+                                          }, state[/* popupChar */3][/* caption */1]))])), ReasonReact.element(/* None */0, /* None */0, ControlPanel$ReactTemplate.make(CoolCharData$ReactTemplate.modeToJs(state[/* mode */1]), send, /* array */[])), React.createElement("div", {
                               className: "chars"
                             }, Belt_Array.mapWithIndex(state[/* chars */0], (function (i, cc) {
                                     return React.createElement("span", {

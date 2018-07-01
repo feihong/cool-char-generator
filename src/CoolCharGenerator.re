@@ -39,9 +39,6 @@ let make = (_children) => {
     | _ => {text: "?", caption: "?"}
     };
 
-  let popoverClose =  (_evt, self) =>
-    self.ReasonReact.send(ClosePopup);
-
   let charClick = (evt, cc, self) => {
     let el = evt |. ReactEventRe.Mouse.target;
     (el, cc) |. OpenPopup |. self.ReasonReact.send;
@@ -83,7 +80,7 @@ let make = (_children) => {
     render: ({state, send} as self) => {
       <div>
       <MaterialUi.Popover open_=Option.isSome(state.anchorEl)
-                          onClose=self.handle(popoverClose)
+                          onClose=(_evt => send(ClosePopup))
                           anchorEl=?convertAnchorEl(state.anchorEl)>
           <div className="popover-content">
             <div className="text">
