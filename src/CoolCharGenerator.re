@@ -29,12 +29,16 @@ let make = (_children) => {
     | `Emoji => 
         Emoji.getEmoji() |> e => {
           text: e.text,
-          caption: Printf.sprintf("%s (%s)", e.shortname, e.category),
+          caption: Printf.sprintf("%s (%s)", 
+                                  e.shortname |. String.capitalize, 
+                                  e.category |. String.capitalize),
         }
     | (`Hanzi|`Hangul|`Kana|`Devanagari|`Hieroglyphs|`Tibetan) as writingSys => 
         IntlChar.getIntlChar(writingSys) |> ic => {
           text: ic.text,
-          caption: Printf.sprintf("%s - %d", ic.writingSystem, ic.ordinal),
+          caption: Printf.sprintf("%s %s", 
+                                  ic.writingSystem, 
+                                  ic.ordinal |. Util.numToHex),
         }
     | _ => {text: "?", caption: "?"}
     };
@@ -49,7 +53,6 @@ let make = (_children) => {
   let convertAnchorEl = maybeEl =>
     maybeEl |. Option.map(
       el => `ObjectGeneric(el |. ReactDOMRe.domElementToObj));
-
   {
     /* spread the other default fields of component here and override a few */
     ...component,

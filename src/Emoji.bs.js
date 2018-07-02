@@ -32,7 +32,7 @@ var emojis = Belt_Array.map(getItems(/* () */0), (function (param) {
         var shortname = param[0];
         var len = shortname.length;
         return /* record */[
-                /* shortname */Curry._3(Util$ReactTemplate.$$String[/* replace */1], $$String.sub(shortname, 1, len - 2 | 0), "_", " "),
+                /* shortname */Curry._3(Util$ReactTemplate.String_[/* replace */1], $$String.sub(shortname, 1, len - 2 | 0), "_", " "),
                 /* text */emojione.convert(item.uc_output),
                 /* category */item.category
               ];

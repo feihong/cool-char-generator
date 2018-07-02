@@ -18,13 +18,14 @@
 .popover-content {
   padding: 0 1rem 0.5rem 1rem;
   overflow-y: hidden;
+  text-align: center;
 }
 
 .popover-content .text {
-  font-size: 5.5rem;
-  text-align: center;
+  font-size: 6rem;
 }
 
 .popover-content .caption {
   font-size: 0.75rem;
+  color: gray;
 }

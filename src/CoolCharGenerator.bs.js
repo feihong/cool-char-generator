@@ -4,6 +4,7 @@ import * as Block from "bs-platform/lib/es6/block.js";
 import * as Curry from "bs-platform/lib/es6/curry.js";
 import * as React from "react";
 import * as Printf from "bs-platform/lib/es6/printf.js";
+import * as $$String from "bs-platform/lib/es6/string.js";
 import * as Belt_Array from "bs-platform/lib/es6/belt_Array.js";
 import * as Belt_Option from "bs-platform/lib/es6/belt_Option.js";
 import * as ReasonReact from "reason-react/src/ReasonReact.js";
@@ -75,7 +76,7 @@ function make() {
                                 ])
                             ]),
                           "%s (%s)"
-                        ]), e[/* shortname */0], e[/* category */2])
+                        ]), $$String.capitalize(e[/* shortname */0]), $$String.capitalize(e[/* category */2]))
               ];
       }
     } else {
@@ -88,18 +89,16 @@ function make() {
               /* caption */Curry._2(Printf.sprintf(/* Format */[
                         /* String */Block.__(2, [
                             /* No_padding */0,
-                            /* String_literal */Block.__(11, [
-                                " - ",
-                                /* Int */Block.__(4, [
-                                    /* Int_d */0,
+                            /* Char_literal */Block.__(12, [
+                                /* " " */32,
+                                /* String */Block.__(2, [
                                     /* No_padding */0,
-                                    /* No_precision */0,
                                     /* End_of_format */0
                                   ])
                               ])
                           ]),
-                        "%s - %d"
-                      ]), ic[/* writingSystem */1], ic[/* ordinal */2])
+                        "%s %s"
+                      ]), ic[/* writingSystem */1], Util$ReactTemplate.numToHex(ic[/* ordinal */2]))
             ];
     }
     
