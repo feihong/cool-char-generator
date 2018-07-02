@@ -6,17 +6,14 @@ module String_ = {
 
   /* Convert given string to array of code points */
   let toCodePoints: string => array(int) =
-    [%bs.raw {|
-      function (text) {
-        return [...text].map(s => s.charCodeAt(0))
-      }
+    [%raw (text) => {|      
+      return [...text].map(s => s.charCodeAt(0))      
     |}];
 
+  /* Global string replace */
   let replace: (string, string, string) => string = 
-    [%bs.raw {|
-      function (s, a, b) {
-        return s.replace(new RegExp(a, 'g'), b)
-      }
+    [%raw (s, a, b) => {|      
+      return s.replace(new RegExp(a, 'g'), b)      
     |}];
 };
 

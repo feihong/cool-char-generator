@@ -45,15 +45,15 @@ let getCharFromCodePoints = codePoints => {
   (text, ordinal)
 };
 
-let kanaCodePoints = [%bs.raw {|
+let kanaCodePoints = [%raw {|
   'ァアィイゥウェエォオカグケゲコゴサザシジスズセダチヂッツヅテデトドナニバパヒビピフブプヘベペホムメモャヤュユョヨラリルヰヱヲンヴヵヶヷヸヹヺぁあぃいぅうぇえぉおかぐけげこごさざしじすずせだちぢっつづてでとどなにばぱひびぴふぶぷへべぺほむめもゃやゅゆょよらりるゐゑをんゔゕゖ'
 |}] |. String_.toCodePoints;
 
-let devanagariCodePoints = [%bs.raw {|
+let devanagariCodePoints = [%raw {|
   'ऄअआइईउऊऋऌऍऎएऐऑऒओऔकखगघङचछजझञटठडढणतथदधनऩपफबभमयरऱलळऴवशषसहऽॐकखगजडढफयॠॡ१२३४५६७८९ॲॳॴॵॶॷॸॹॺॻॼॽॾॿ'
 |}] |. String_.toCodePoints;
 
-let tibetanCodePoints = [%bs.raw {|
+let tibetanCodePoints = [%raw {|
   'ༀ༁༂༃༄༅༆༇༈༉༊༒༓༔༕༖༗༘༜༡༢༣༤༥༦༧༨༩༪༫༬༭༮༯༰༱༲༳༴༸༺༻༼༽ཀཁགགངཅཆཇཉཊཋཌཌཎཏཐདདནཔཕབབམཙཚཛཛཝཞཟའཡརལཤཥསཧཨཀཪཫཬིཻོཽྀ྅ྈྉྊྋ྿࿂࿃࿄࿅࿇࿈࿉࿊࿋࿌࿏࿐࿑࿓࿔࿕࿖࿗࿘'
 |}] |. String_.toCodePoints;
 

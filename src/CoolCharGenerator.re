@@ -51,8 +51,8 @@ let make = (_children) => {
   /* Convert the given option(Dom.element) to the form preferred by 
      MaterialUi.Popover's anchorEl argument */
   let convertAnchorEl = maybeEl =>
-    maybeEl |. Option.map(
-      el => `ObjectGeneric(el |. ReactDOMRe.domElementToObj));
+    maybeEl |. Option.map(el =>
+      `ObjectGeneric(el |. ReactDOMRe.domElementToObj));
   {
     /* spread the other default fields of component here and override a few */
     ...component,
@@ -82,7 +82,7 @@ let make = (_children) => {
 
     render: ({state, send} as self) => {
       <div>
-      <MaterialUi.Popover open_=Option.isSome(state.anchorEl)
+        <MaterialUi.Popover open_=Option.isSome(state.anchorEl)
                           onClose=(_evt => send(ClosePopup))
                           anchorEl=?convertAnchorEl(state.anchorEl)>
           <div className="popover-content">
