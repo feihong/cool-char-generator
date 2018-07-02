@@ -1,15 +1,15 @@
 # Deploy to Glitch from branch
 
-This is a recipe to deploy to [Glitch](https://glitch.com) from a branch that isn't master. Basically, you still develop in master but when you're ready to deploy, you first publish your production files to an orphan branch before loading the GitHub repo in Glitch. 
+This is a recipe to deploy to [Glitch](https://glitch.com) from a branch that isn't master. Basically, you still develop in master but when you're ready to deploy, you first publish your production files to an orphan branch named glitch before importing the GitHub repo inside Glitch. 
 
-You might find this useful if your project uses a language that compiles to JS, such as ClojureScript, Elm, or ReasonML. In most cases, you cannot install the dev tools for alternative languages on Glitch, but even if you could, it is not generally worthwhile to do so because it drastically increases the install and restart times for your project.
+You might find this useful if your project uses a language that compiles to JS, such as ReasonML, ClojureScript, or Elm. In most cases, you cannot install the dev tools for alternative languages on Glitch, but even if you could, it is often not worthwhile to do so because it drastically increases the install and restart times for your project.
 
 The main differences between the deploy branch and master are:
 
 - Your compiled JS files are included, e.g. Index.bs.js, bundle.js
 - The devDependencies section of your package.json is commented out, preventing Glitch from installing any packages in it
 
-This project assumes that you are using Reason and your deploy branch is called glitch, but you can change that by editing `publish.js`, `package.json`,  and deleting `bsconfig.json` (if using a language that isn't Reason).
+This project assumes that you are using Reason and your deploy branch is called glitch, but you can change that by editing `scripts/publish.js`, `package.json`,  and deleting `bsconfig.json` (if using a language that isn't Reason).
 
 # Instructions
 
@@ -17,7 +17,7 @@ These instructions assume you already created a git repository and committed som
 
 1. Create orphan branch called `glitch` that you can publish to.
     ```sh
-    git checkout --orphan 
+    git checkout --orphan glitch
     git reset HEAD -- .  # remove everything from stage
     git add README.md
     git commit -m "Initial commit"
