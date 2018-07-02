@@ -4,17 +4,13 @@ import * as Random from "bs-platform/lib/es6/random.js";
 import * as $$String from "bs-platform/lib/es6/string.js";
 import * as Belt_Array from "bs-platform/lib/es6/belt_Array.js";
 
-var toCodePoints = (
-      function (text) {
-        return [...text].map(s => s.charCodeAt(0))
-      }
-    );
+var toCodePoints = function (text){      
+      return [...text].map(s => s.charCodeAt(0))      
+    };
 
-var replace = (
-      function (s, a, b) {
-        return s.replace(new RegExp(a, 'g'), b)
-      }
-    );
+var replace = function (s,a,b){      
+      return s.replace(new RegExp(a, 'g'), b)      
+    };
 
 var String_ = /* module */[
   /* toCodePoints */toCodePoints,
@@ -46,4 +42,4 @@ export {
   numToHex ,
   
 }
-/* toCodePoints Not a pure module */
+/* No side effect */

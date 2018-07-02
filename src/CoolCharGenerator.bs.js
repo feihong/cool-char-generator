@@ -103,7 +103,7 @@ function make() {
     }
     
   };
-  var convertAnchorEl = function (maybeEl) {
+  var elemToObjGeneric = function (maybeEl) {
     return Belt_Option.map(maybeEl, (function (el) {
                   return /* `ObjectGeneric */[
                           -317959944,
@@ -126,7 +126,7 @@ function make() {
           /* render */(function (self) {
               var send = self[/* send */3];
               var state = self[/* state */1];
-              return React.createElement("div", undefined, ReasonReact.element(/* None */0, /* None */0, MaterialUi_Popover.make(/* None */0, convertAnchorEl(state[/* anchorEl */2]), /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* Some */[(function () {
+              return React.createElement("div", undefined, ReasonReact.element(/* None */0, /* None */0, MaterialUi_Popover.make(/* None */0, elemToObjGeneric(state[/* anchorEl */2]), /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* Some */[(function () {
                                       return Curry._1(send, /* ClosePopup */2);
                                     })], /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, Belt_Option.isSome(state[/* anchorEl */2]), /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* None */0, /* array */[React.createElement("div", {
                                         className: "popover-content"
@@ -170,7 +170,7 @@ function make() {
                 switch (action) {
                   case 0 : 
                       return /* Update */Block.__(0, [/* record */[
-                                  /* chars */Belt_Array.concat(state[/* chars */0], /* array */[getCoolChar(state[/* mode */1])]),
+                                  /* chars */Belt_Array.concat(/* array */[getCoolChar(state[/* mode */1])], state[/* chars */0]),
                                   /* mode */state[/* mode */1],
                                   /* anchorEl */state[/* anchorEl */2],
                                   /* popupChar */state[/* popupChar */3]

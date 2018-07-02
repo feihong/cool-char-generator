@@ -2,9 +2,9 @@
 
 Deployed to: https://cool-char-generator.glitch.me/
 
-This is a simple ReasonReact app that randomly generates visually interesting characters from various writing systems. It makes use of the [Material-UI] React component library.
+This is a simple ReasonReact app that randomly generates visually interesting characters from various writing systems. It makes use of the [Material-UI](https://material-ui.com/) React component library via the [@jsiebern/bs-material-ui](https://github.com/jsiebern/bs-material-ui) bindings.
 
-This project does not run directly on [Glitch](https://glitch.com) because `bs-platform` cannot be installed there. However, it can be imported into Glitch by way of a default orphan branch. See the [deploy recipe](DEPLOY.md) for more details.
+This project cannot run directly on [Glitch](https://glitch.com) because the Reason toolchain cannot be installed there. However, the compiled JavaScript files can be imported into Glitch by way of a default orphan branch. See the [deploy recipe](DEPLOY.md) for more details.
 
 ## Prerequisites
 
