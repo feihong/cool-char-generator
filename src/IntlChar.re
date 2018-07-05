@@ -13,7 +13,7 @@
  * 
  */
 
-open Util;
+module String = Util.String_;
 
 type intlChar = {
   text: string,

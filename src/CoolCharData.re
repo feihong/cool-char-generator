@@ -23,6 +23,14 @@ type coolChar = {
   caption: string,
 };
 
+/* State declaration */
+type state = {
+  chars: array(coolChar),
+  mode: mode,  
+  anchorEl: option(Dom.element),
+  popupChar: coolChar,
+};
+
 /* Action declaration */
 type action =
   | AddChar

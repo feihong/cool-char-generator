@@ -1,7 +1,7 @@
 open Belt;
 
-module String = {
-  include String;
+module String_ = {
+  /* include String; */
 
   /* Convert Unicode code point to corresponding string */
   [@bs.val] external fromCodePoint: int => string = "String.fromCodePoint";

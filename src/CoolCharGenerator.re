@@ -3,14 +3,6 @@ open CoolCharData;
 
 let str = ReasonReact.string;
 
-/* State declaration */
-type state = {
-  chars: array(coolChar),
-  mode: mode,  
-  anchorEl: option(Dom.element),
-  popupChar: coolChar,
-};
-
 /* Component template declaration.
    Needs to be **after** state and action declarations! */
 let component = ReasonReact.reducerComponent("CoolCharGenerator");
