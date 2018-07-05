@@ -42,7 +42,7 @@ let emojis = Emojione.(
         /* Chop off the colons at the beginning and end; replace underscores 
            with spaces */
         shortname: shortname |. String.sub(1, len - 2) 
-                             |. Util.String_.replace("_", " "),
+                             |. Util.String.replace("_", " "),
         text: item |. uc_output |. convertUcOutput,
         category: item |. category,
       }

@@ -1,6 +1,8 @@
 open Belt;
 
-module String_ = {
+module String = {
+  include String;
+
   /* Convert Unicode code point to corresponding string */
   [@bs.val] external fromCodePoint: int => string = "String.fromCodePoint";
 
@@ -28,7 +30,7 @@ let chooseFromArray = array => {
 };
 
 /* Equivalent to evt.target.value */
-let eventTargetValue = evt => 
+let eventTargetValue = evt =>
   (evt |. ReactEventRe.Form.target |. ReactDOMRe.domElementToObj)##value;
 
 [@bs.send] external numToString: (int, int) => string = "toString";
